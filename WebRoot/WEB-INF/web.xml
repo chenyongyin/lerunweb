@@ -55,10 +55,6 @@
     <servlet-name>VolunteerServlet</servlet-name>
     <url-pattern>/api/volunteer</url-pattern>
   </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>testServlet</servlet-name>
-    <url-pattern>/api/testServlet</url-pattern>
-  </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
