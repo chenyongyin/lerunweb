@@ -2,15 +2,15 @@ package com.lerun.model;
 
 public class OrderInfo {
 	
-	int order_num;
-	int lerun_id;
-	String user_id;
-	String sign_state;
-	String charge_state;
-	String sign_barcode;
-	String signup_time;
-	String pay_time;
-	String sign_time;
+	private int order_num;
+	private int lerun_id;
+	private String user_id;
+	private String sign_state;
+	private String charge_state;
+	private String sign_barcode;
+	private String signup_time;
+	private String pay_time;
+	private String sign_time;
 	public int getOrder_num() {
 		return order_num;
 	}

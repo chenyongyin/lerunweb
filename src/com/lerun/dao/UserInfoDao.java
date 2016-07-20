@@ -98,7 +98,13 @@ public class UserInfoDao {
 
 	public static void main(String[] args) throws SQLException {
 		UserInfoDao dao=new UserInfoDao();
-		dao.Register("123", "admin");
+//		dao.Register("123", "admin");
+		UserInfo info=new UserInfo();
+		info.setUpdate_type("user_name");
+		info.setUpdate_values("2222");
+//		info.set
+//		String result=dao.Login("125");
+//		System.out.println("r"+result);
 
 	}
 	/**

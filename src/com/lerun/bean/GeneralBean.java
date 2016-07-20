@@ -1,74 +1,76 @@
 package com.lerun.bean;
 
 /**
- *@Author: wschenyongyin
- *@Date: 2016-7-15
- *@explain:
- *@TestState:
+ * @Author: wschenyongyin
+ * @Date: 2016-7-15
+ * @explain:
+ * @TestState:
  */
 public class GeneralBean {
 
 	// userTable 用户表
-	String user_id;
-	String user_name;
-	String user_pwd;
-	String user_birthday;
-	String user_sex;
-	String user_header;
-	String user_identity;
-	String user_address;
-	String user_bankid;
-	String user_fullname;
-	String user_level;
-	String user_health;
-	String user_height;
-	String user_weight;
-	String user_email;
-	String user_state;
-	String update_type;
-	String update_values;
+	private  String user_id;
+	private String user_name;
+	private String user_pwd;
+	private String user_birthday;
+	private String user_sex;
+	private String user_header;
+	private String user_identity;
+	private String user_address;
+	private String user_bankid;
+	private String user_fullname;
+	private String user_level;
+	private String user_health;
+	private String user_height;
+	private String user_weight;
+	private String user_email;
+	private String user_state;
+	private String update_type;
+	private String update_values;
 
 	// CommentTable 评论表
-	int comment_id;
-	int show_id;
-	String comment_content;
-	String comment_time;
-	String comment_userid;
+	private int comment_id;
+	private int show_id;
+	private String comment_content;
+	private String comment_time;
+	private String comment_userid;
+
+	// 活动参与表 OrderInfo
+	private int order_num;
+	private int lerun_id;
+	private String sign_state;
+	private String charge_state;
+	private String sign_barcode;
+	private String signup_time;
+	private String pay_time;
+	private String sign_time;
+
+	// 活动表
+
+	private String lerun_title;
+	private String lerun_content;
+	private String lerun_poster;
+	private String lerun_time;
+	private String lerun_map;
+	private String lerun_routine;
+	private String lerun_host;
+	private String lerun_charge;
+	private String lerun_process;
+	private String lerun_ruler;
+	private String lerun_state;
+	private String lerun_type;
+	private String lerun_dimage;
+	private String lerun_address;
+	private String lerun_city;
+	private String lerun_sponsor;
+	private String lerun_maxuser;
+	private String lerun_video;
+	private String lerun_begintime;
+	private String lerun_endtime;
 	
-	//活动参与表  OrderInfo
-	int order_num;
-	int lerun_id;
-	String sign_state;
-	String charge_state;
-	String sign_barcode;
-	String signup_time;
-	String pay_time;
-	String sign_time;
 	
-	//活动表
-	
-	
-	String lerun_title;
-	String lerun_content;
-	String lerun_poster;
-	String lerun_time;
-	String lerun_map;
-	String lerun_routine;
-	String lerun_host;
-	String lerun_charge;
-	String lerun_process;
-	String lerun_ruler;
-	String lerun_state;
-	String lerun_type;
-	String lerun_dimage;
-	String lerun_address;
-	String lerun_city;
-	String lerun_sponsor;
-	String lerun_maxuser;
-	String lerun_video;
-	String lerun_begintime;
-	String lerun_endtime;
-	
+	//图片地址
+	private String show_imagepath;
 
 	public String getPay_time() {
 		return pay_time;

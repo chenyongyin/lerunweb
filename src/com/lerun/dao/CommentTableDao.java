@@ -77,6 +77,22 @@ public class CommentTableDao {
 		return list;
 	}
 
+	
+	//统计show的评论数量
+	public int countCommentNumber(int show_id) throws SQLException{
+		String sql = "select count(user_id) from commentTable where show_id='"
+				+ show_id + "'";
+		Connection conn = DB.getConnection();
+		Statement st = conn.createStatement();
+		ResultSet rs = st.executeQuery(sql);
+		while (rs.next()) {
+			int amount = rs.getInt(1);
+			return amount;
+		}
+		return 0;
+	}
+	
+	
 	public static void main(String[] args) throws SQLException {
 		CommentTableDao dao = new CommentTableDao();
 		int result = dao.Releasecomment(999, "1234", "康康是个小煞笔", "123");
