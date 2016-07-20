@@ -65,7 +65,7 @@ public class OrderInfoDao {
 	public GeneralBean returnVoluntaryInfo(int lerun_id, String user_id)
 			throws SQLException {
 
-		String sql = "";
+		String sql = "select * from orderTable where lerun_id='"+lerun_id+"' and user_id='"+user_id+"'";
 		Connection conn = DB.getConnection();
 		Statement st = conn.createStatement();
 		ResultSet rs = st.executeQuery(sql);
@@ -111,7 +111,7 @@ public class OrderInfoDao {
 		while (rs.next()) {
 			System.out.println("视图已经存在");
 			flag = 1;
-			
+
 		}
 		return flag;
 	}
@@ -175,7 +175,7 @@ public class OrderInfoDao {
 			info.setSignup_time(rs.getString("signup_time"));
 			info.setUser_id(rs.getString("user_id"));
 			list.add(info);
-			
+
 		}
 		DB.closeAll(rs, st, conn);
 		return list;
@@ -201,7 +201,7 @@ public class OrderInfoDao {
 			info.setSignup_time(rs.getString("signup_time"));
 			info.setUser_id(rs.getString("user_id"));
 			list.add(info);
-			
+
 		}
 		DB.closeAll(rs, st, conn);
 		return list;
@@ -223,10 +223,16 @@ public class OrderInfoDao {
 
 	public static void main(String[] args) throws SQLException {
 		OrderInfoDao dao = new OrderInfoDao();
-		 dao.QueryViewExist("1234");
+//		 dao.QueryViewExist("1234");
 		// System.out.println(dao.createView("1234567"));
 //		System.out.println(dao.checkSignUp(999, "1235"));
+		 int result=dao.paySuccess("", "", 1);
+		 System.out.println(result);
+		 if(result==1){
+			 System.out.println("ggygy");
+		 }else{
+			 System.err.println("aaaaa");
+		 }
 
 	}
-
 }

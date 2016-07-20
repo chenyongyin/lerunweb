@@ -2,6 +2,8 @@ package com.lerun.utils;
 
 import java.util.Random;
 
+import com.lerun.bean.GeneralBean;
+
 /**
  *@Author: wschenyongyin
  *@Date: 2016-7-15
@@ -14,6 +16,9 @@ public class RandomString {
 	};
 
 	public static String getRandomString(int length) { // length表示生成字符串的长度
+		
+		
+		GeneralBean bean=new GeneralBean();		
 		String base = "abcdefghijklmnopqrstuvwxyz0123456789";
 		Random random = new Random();
 		StringBuffer sb = new StringBuffer();

@@ -83,6 +83,7 @@ public class LikeTableDao {
 			list.add(info);
 
 		}
+		DB.closeAll(rs, st, conn);
 		return list;
 	}
 
@@ -104,7 +105,7 @@ public class LikeTableDao {
 		LikeTableDao dao = new LikeTableDao();
 		// int result=dao.countLikeNumber(999);
 		// List<UserInfo> result=dao.QueryLikeUser(999);
-		int result = dao.CancelLike("1234", 1001);
+		int result = dao.countLikeNumber(1000);
 		System.out.println("result:" + result);
 
 	}

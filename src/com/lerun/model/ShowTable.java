@@ -1,17 +1,36 @@
 package com.lerun.model;
+
 /**
  * 
  * @author wschenyongyin
- *
+ * 
  */
 public class ShowTable {
-	int show_id;
-	String user_id;
-	String show_content;
-	String show_image;
-	String show_time;
-	
-	int like_state;
+	private int show_id;
+	private String user_id;
+	private String show_content;
+	private String show_image;
+	private String show_time;
+	private int comment_num;
+	private int like_num;
+
+	private int like_state;
+
+	public int getComment_num() {
+		return comment_num;
+	}
+
+	public void setComment_num(int comment_num) {
+		this.comment_num = comment_num;
+	}
+
+	public int getLike_num() {
+		return like_num;
+	}
+
+	public void setLike_num(int like_num) {
+		this.like_num = like_num;
+	}
 
 	public int getLike_state() {
 		return like_state;

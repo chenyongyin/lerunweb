@@ -19,7 +19,7 @@ public class DBConnection {
 		// 3、定义连接数据库驱动程序
 
 		// 定义URL，数据库访问的地址
-		String DBURL = "jdbc:sqlserver://192.168.188.29:1433;DatabaseName=test";
+		String DBURL = "jdbc:sqlserver://192.168.0.19:1433;DatabaseName=test";
 
 		Connection conn = null;
 
@@ -37,28 +37,7 @@ public class DBConnection {
 		return conn;
 
 	}
-//连接物业数据库
-	public static Connection getTenementConnection() {
 
-		// 定义URL，数据库访问的地址
-		String DBURL = "jdbc:sqlserver://192.168.188.245:1433;DatabaseName=Tenement";
-
-		Connection conn = null;
-
-		try {
-			// 1 加载驱动，同时向驱动管理器报到
-			Class.forName(CLASSFORNAME);
-			//	  
-			// 2，DriverManager负责建立数据库连接，
-			conn = DriverManager.getConnection(DBURL, DBUSER, DBPWD);
-
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-
-		return conn;
-
-	}
 
 	// 关闭数据库连接
 	public void closeAll(ResultSet rs, Statement st, Connection conn)

@@ -10,10 +10,10 @@ package com.lerun.model;
 public class commentTable {
 	int comment_id;
 	int show_id;
-	String user_id;//评论者的id
-	String comment_content;
-	String comment_time;
-	String comment_userid;//被评论者的id
+	private String user_id;//评论者的id
+	private String comment_content;
+	private String comment_time;
+	private String comment_userid;//被评论者的id
 	public int getComment_id() {
 		return comment_id;
 	}
