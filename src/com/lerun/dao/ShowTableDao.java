@@ -13,8 +13,7 @@ import com.lerun.utils.DBConnection;
 import com.lerun.utils.JsonTools;
 
 /**
- * 对秀表的操作
- * 测试结果: 全部测试成功
+ * 对秀表的操作 测试结果: 全部测试成功
  * 
  * @author wschenyongyin
  * 
@@ -22,7 +21,6 @@ import com.lerun.utils.JsonTools;
 public class ShowTableDao {
 	Connection conn = null;
 	DBConnection DB = new DBConnection();
-	
 
 	public ShowTableDao() {
 		this.conn = DB.getConnection();
@@ -62,18 +60,23 @@ public class ShowTableDao {
 		Statement st = conn.createStatement();
 		ResultSet rs = st.executeQuery(sql);
 		List<ShowTable> list = new ArrayList<ShowTable>();
-		LikeTableDao likeDao=new LikeTableDao();
-		
+		LikeTableDao likeDao = new LikeTableDao();
+		CommentTableDao commentDao = new CommentTableDao();
 		while (rs.next()) {
 			ShowTable show = new ShowTable();
-			int flag=likeDao.QueryExistUser(rs.getInt("show_id"), rs.getString("user_id"));
-			
+			int flag = likeDao.QueryExistUser(rs.getInt("show_id"),
+					rs.getString("user_id"));
+			int like_num = likeDao.countLikeNumber(rs.getInt("show_id"));
+			int comment_num =commentDao.countCommentNumber (rs.getInt("show_id"));
+			System.out.println("show_id:"+rs.getInt("show_id"));
+			System.out.println("点赞用户：" + like_num + ",评论用户:" + comment_num);
 			show.setShow_content(rs.getString("show_content"));
 			show.setShow_id(rs.getInt("show_id"));
 			show.setShow_image(rs.getString("show_image"));
 			show.setUser_id(rs.getString("user_id"));
 			show.setLike_state(flag);
-
+			show.setComment_num(comment_num);
+			show.setLike_num(like_num);
 			list.add(show);
 
 		}
@@ -84,10 +87,8 @@ public class ShowTableDao {
 	// 查看自己发布的show
 	public List<ShowTable> QueryPersonalShow(String user_id)
 			throws SQLException {
-		LikeTableDao dao=new LikeTableDao();
-		
-		
-		
+		LikeTableDao dao = new LikeTableDao();
+
 		String sql = "select * from showTable where user_id='" + user_id + "'";
 		Connection conn = DB.getConnection();
 		Statement st = conn.createStatement();
@@ -122,12 +123,7 @@ public class ShowTableDao {
 		DB.closeAll(rs, st, conn);
 		return list;
 	}
-	
-	
-	
-	
-	
-	
+
 	// 先判断视图是否存在
 	public int QueryViewExist(String user_id) throws SQLException {
 		int flag = 0;
@@ -141,7 +137,7 @@ public class ShowTableDao {
 		while (rs.next()) {
 			System.out.println("视图已经存在");
 			flag = 1;
-			
+
 		}
 		return flag;
 	}
@@ -150,7 +146,8 @@ public class ShowTableDao {
 	public int createView(String user_id) throws SQLException {
 		String sql = "create view viewshow_"
 				+ user_id
-				+ " as select show_id ,user_id,show_content,show_image,show_time from showTable where user_id='"+user_id+"'";
+				+ " as select show_id ,user_id,show_content,show_image,show_time from showTable where user_id='"
+				+ user_id + "'";
 		Connection conn = DB.getConnection();
 
 		Statement st = conn.createStatement();
@@ -183,28 +180,22 @@ public class ShowTableDao {
 		return list;
 
 	}
-	
-	
-	
-	
-	
-	
 
 	public static void main(String[] args) throws SQLException {
 		ShowTableDao dao = new ShowTableDao();
-		ShowTable show=new ShowTable();
-//		show.setUser_id("123");
-//		show.setShow_content("kaixin");
-//		show.setShow_image("wwww.baidu.com");
-////		List<ShowTable> list=dao.QueryAllShow();
-//		List<ShowTable> list=dao.QueryPersonalShow("123");
-//		System.out.println("数据条数为:"+list.size());
-//		int result=dao.deleteShow(1002);
-//		System.out.println("result"+result);
-//		int result=dao.createView("123");
-		List<ShowTable> list=dao.QueryShowView("1234");
-		System.out.println("result"+list.size());
-		String result=JsonTools.createJsonString("sss", list);
+		ShowTable show = new ShowTable();
+		// show.setUser_id("123");
+		// show.setShow_content("kaixin");
+		// show.setShow_image("wwww.baidu.com");
+//		List<ShowTable> list = dao.QueryAllShow();
+		// List<ShowTable> list=dao.QueryPersonalShow("123");
+		// System.out.println("数据条数为:"+list.size());
+		// int result=dao.deleteShow(1002);
+		// System.out.println("result"+result);
+		// int result=dao.createView("123");
+		// List<ShowTable> list = dao.QueryShowView("1234");
+//		System.out.println("result" + list.size());
+//		String result = JsonTools.createJsonString("sss", list);
 
 	}
 

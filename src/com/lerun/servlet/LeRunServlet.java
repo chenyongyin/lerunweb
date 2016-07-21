@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.lerun.model.LeRun;
 import com.lerun.model.UserInfo;
 import com.lerun.service.LeRunService;
+import com.lerun.service.LunBoService;
 import com.lerun.service.ShowService;
 import com.lerun.service.UserService;
 import com.lerun.utils.JsonTools;
@@ -44,7 +45,6 @@ public class LeRunServlet extends HttpServlet {
 			throws ServletException, IOException {
 		response.setContentType("text/html;charset=utf-8");
 		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
 
 		PrintWriter out = response.getWriter();
 		String jsonSting = null;
@@ -231,7 +231,8 @@ public class LeRunServlet extends HttpServlet {
 		}
 		// show
 		else if (flag.equals("show")) {
-			// index: 0用户发布show 1：用户删除show 2：获取所有秀内容 3获取自己发布的show
+			// index: 0用户发布show 1：用户删除show 2：获取所有秀内容 3获取自己发布的show 4.获取show的评论
+			// 5获取show的点赞信息 6用户取消点赞 7评论 8点赞
 			ShowService showSerview = new ShowService();
 			switch (index) {
 			case 0:
@@ -271,7 +272,109 @@ public class LeRunServlet extends HttpServlet {
 				try {
 					jsonSting = showSerview.QueryPersonalShow(user_id);
 					out.print(jsonSting);
-					
+
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				break;
+			// 获取show的评论
+			case 4:
+				int show_id2 = Integer
+						.parseInt(request.getParameter("show_id"));
+				try {
+					jsonSting = showSerview.QueryShowComment(show_id2);
+					out.print(jsonSting);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+			// 获取show的点赞信息
+			case 5:
+				int show_id3 = Integer
+						.parseInt(request.getParameter("show_id"));
+				try {
+					jsonSting = showSerview.QueryShowLike(show_id3);
+					out.print(jsonSting);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				break;
+			// 取消点赞
+			case 6:
+				int show_id4 = Integer
+						.parseInt(request.getParameter("show_id"));
+				String user_id4 = request.getParameter("user_id");
+				try {
+					jsonSting = showSerview.canLike(user_id4, show_id4);
+					out.print(jsonSting);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+			// 评论
+			case 7:
+				int show_id7 = Integer
+						.parseInt(request.getParameter("show_id"));
+				String user_id7 = request.getParameter("user_id");
+				String comment_content = request
+						.getParameter("comment_content");
+				String comment_userid = request.getParameter("comment_userid");
+				try {
+					jsonSting = showSerview.ReleaseComment(show_id7, user_id7,
+							comment_content, comment_userid);
+					out.print(jsonSting);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				break;
+			// 点赞
+			case 8:
+				String user_id8 = request.getParameter("user_id");
+				String like_userid8 = request.getParameter("like_userid");
+				int show_id8 = Integer
+						.parseInt(request.getParameter("show_id"));
+				try {
+					jsonSting = showSerview.ReleaseLike(user_id8, show_id8,
+							like_userid8);
+					out.print(jsonSting);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+
+			default:
+				break;
+			}
+
+		}
+		// 获取lunbo信息 包括轮播视频 轮播图片
+		else if (flag.endsWith("lunbo")) {
+			// index: 0 获取图片1获取视频
+			LunBoService service=new LunBoService();
+			switch (index) {
+			case 0:
+				try {
+					jsonSting=service.getImageData();
+					out.print(jsonSting);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				break;
+			case 1:
+				try {
+					jsonSting=service.getVideoData();
+					out.print(jsonSting);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -282,8 +385,8 @@ public class LeRunServlet extends HttpServlet {
 			default:
 				break;
 			}
-
 		}
+		;
 	}
 
 	public void init() throws ServletException {

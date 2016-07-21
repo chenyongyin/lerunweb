@@ -8,26 +8,26 @@ package com.lerun.model;
  */
 public class UserInfo {
 
-	String user_id;
-	String user_name;
-	String user_pwd;
-	String user_birthday;
-	String user_sex;
-	String user_header;
-	String user_identity;
-	String user_address;
-	String user_bankid;
-	String user_fullname;
-	String user_level;
-	String user_health;
-	String user_height;
-	String user_weight;
-	String user_email;
-	String user_state;
-	String update_type;
-	String update_values;
+	private String user_id;
+	private String user_name;
+	private String user_pwd;
+	private String user_birthday;
+	private String user_sex;
+	private String user_header;
+	private String user_identity;
+	private String user_address;
+	private String user_bankid;
+	private String user_fullname;
+	private String user_level;
+	private String user_health;
+	private String user_height;
+	private String user_weight;
+	private String user_email;
+	private String user_state;
+	private String update_type;
+	private String update_values;
 	
-	String like_time;//点赞的时间
+	private String like_time;//点赞的时间
 
 	public String getLike_time() {
 		return like_time;

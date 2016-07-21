@@ -7,8 +7,8 @@ package com.lerun.model;
  *@TestState:
  */
 public class VoluntaryTable {
-	int  Voluntary_id;
-	String Voluntary_pwd;
+	private int  Voluntary_id;
+	private String Voluntary_pwd;
 	
 	
 	public VoluntaryTable(){}

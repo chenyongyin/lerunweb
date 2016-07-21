@@ -7,7 +7,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lerun.bean.GeneralBean;
 import com.lerun.model.commentTable;
 import com.lerun.utils.DBConnection;
 
@@ -56,14 +55,14 @@ public class CommentTableDao {
 	}
 
 	// 查看show评论
-	public List<GeneralBean> QueryComment(int show_id) throws SQLException {
+	public List<commentTable> QueryComment(int show_id) throws SQLException {
 		String sql = "select comment_content,comment_id,comment_time,comment_userid,userTable.user_id,user_header,user_name from userTable,commentTable where userTable.user_id=commentTable.user_id and show_id='"+show_id+"'";
 		Connection conn = DB.getConnection();
 		Statement st = conn.createStatement();
 		ResultSet rs = st.executeQuery(sql);
-		List<GeneralBean> list = new ArrayList<GeneralBean>();
+		List<commentTable> list = new ArrayList<commentTable>();
 		while (rs.next()) {
-			GeneralBean bean = new GeneralBean();
+			commentTable bean = new commentTable();
 			bean.setComment_content(rs.getString("comment_content"));
 			bean.setComment_id(Integer.parseInt(rs.getString("comment_id")));
 			bean.setComment_time(rs.getString("comment_time"));
@@ -77,12 +76,28 @@ public class CommentTableDao {
 		return list;
 	}
 
+	
+	//统计show的评论数量
+	public int countCommentNumber(int show_id) throws SQLException{
+		String sql = "select count(user_id) from commentTable where show_id='"
+				+ show_id + "'";
+		Connection conn = DB.getConnection();
+		Statement st = conn.createStatement();
+		ResultSet rs = st.executeQuery(sql);
+		while (rs.next()) {
+			int amount = rs.getInt(1);
+			return amount;
+		}
+		return 0;
+	}
+	
+	
 	public static void main(String[] args) throws SQLException {
 		CommentTableDao dao = new CommentTableDao();
 		int result = dao.Releasecomment(999, "1234", "康康是个小煞笔", "123");
 		// int result =dao.deleteComment(2);
-		List<GeneralBean> list=dao.QueryComment(999);
-		System.out.println("result:" + result +"list大小："+list.size());
+//		List<GeneralBean> list=dao.QueryComment(999);
+//		System.out.println("result:" + result +"list大小："+list.size());
 
 	}
 
