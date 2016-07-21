@@ -31,5 +31,4 @@ public class ResponseObject {
 	public void setDatas(Object datas) {
 		this.datas = datas;
 	}
-
 }

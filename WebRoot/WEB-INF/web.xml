@@ -28,12 +28,7 @@
     <servlet-name>VolunteerServlet</servlet-name>
     <servlet-class>com.lerun.servlet.VolunteerServlet</servlet-class>
   </servlet>
-  <servlet>
-    <description>This is the description of my J2EE component</description>
-    <display-name>This is the display name of my J2EE component</display-name>
-    <servlet-name>testServlet</servlet-name>
-    <servlet-class>com.lerun.servlet.testServlet</servlet-class>
-  </servlet>
+
 
 
 
