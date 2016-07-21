@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.GsonBuilder;
 import com.lerun.bean.ResponseObject;
+import com.lerun.model.OrderInfo;
 import com.lerun.service.volunteerService;
 
 public class VolunteerServlet extends HttpServlet {
@@ -31,6 +32,7 @@ public class VolunteerServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		ResponseObject result = null;
 		int index=0;
+		OrderInfo beaninfo=null;
 		String flag = request.getParameter("flag");
 		System.out.println(flag);
 		if (flag.equals("vlogin") ) {
@@ -40,7 +42,6 @@ public class VolunteerServlet extends HttpServlet {
 			try {
 				index = volunteerService.voluntaryLogin(voluntary_id,
 						voluntary_pwd);
-				System.out.println(index);
 				if (index == 1) {
 					result = new ResponseObject(1, "欢迎登录志愿者端！");
 				} else {
@@ -50,9 +51,33 @@ public class VolunteerServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		} else if (flag.equals("vscanf") ) {
-
+			volunteerService volunteerService = new volunteerService();
+			int lerun_id = Integer.parseInt(request.getParameter("lerun_id"));
+			String user_id = request.getParameter("user_id");
+			try {
+				beaninfo = volunteerService.returnVoluntaryInfo(lerun_id, user_id);
+				if (beaninfo != null) {
+					result = new ResponseObject(1, beaninfo);
+				} else {
+					result = new ResponseObject(0, "信息有误！");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		} else if (flag.equals("vconfirm")) {
-
+			volunteerService volunteerService = new volunteerService();
+			int lerun_id = Integer.parseInt(request.getParameter("lerun_id"));
+			String user_id = request.getParameter("user_id");
+			try {
+				index = volunteerService.SignIn(user_id, lerun_id);
+				if (index == 1) {
+					result = new ResponseObject(1, "签到成功！");
+				} else {
+					result = new ResponseObject(0, "操作失败！");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		} else {
 			result = new ResponseObject(0, "请求失败，请检查请求操作！");
 		}
