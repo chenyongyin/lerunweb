@@ -1,11 +1,11 @@
 package com.lerun.model;
 
 public class LikeTable {
-	int like_id;
-	String show_id;
-	String user_id;//点赞用户的id
-	String like_time;
-	String like_userid;//被点用户的id
+	private int like_id;
+	private String show_id;
+	private String user_id;//点赞用户的id
+	private String like_time;
+	private String like_userid;//被点用户的id
 	
 	
 	public LikeTable(){}

@@ -22,6 +22,7 @@ public class ResponseObject {
 
 	public void setStage(int stage) {
 		this.stage = stage;
+		
 	}
 
 	public Object getDatas() {

@@ -8,12 +8,12 @@ package com.lerun.model;
  */
 public class VideoTable {
 
-	int video_id;
-	String video_image;
-	String video_url;
-	String video_title;
-	String update_type;
-	String update_values;
+	private int video_id;
+	private String video_image;
+	private String video_url;
+	private String video_title;
+	private String update_type;
+	private String update_values;
 	
 
 	public String getUpdate_type() {

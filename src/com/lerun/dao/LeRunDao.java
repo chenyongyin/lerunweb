@@ -76,6 +76,7 @@ public class LeRunDao {
 		Statement st = conn.createStatement();
 		ResultSet rs = st.executeQuery(sql);
 		List<LeRun> list = new ArrayList<LeRun>();
+		List<LeRun> list2=new ArrayList<LeRun>();
 		while (rs.next()) {
 			LeRun lerun = new LeRun();
 

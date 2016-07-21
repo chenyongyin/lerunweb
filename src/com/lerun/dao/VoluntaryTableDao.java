@@ -99,18 +99,7 @@ public class VoluntaryTableDao {
 
 	public static void main(String[] args) throws SQLException {
 		VoluntaryTableDao dao = new VoluntaryTableDao();
-		// int id = new Random().nextInt(999999);
-		// String pwd = RandomString.getRandomString(6);
-		// System.out.println(id + "----" + pwd);
-		// dao.insertVoluntary(id, pwd);
-		//
-		// System.out.println(pwd);
-		//		
-		// System.out.println("登陆状态:"+dao.voluntaryLogin(id, pwd));
-
-//		List<VoluntaryTable> list = dao.crateAccount(3);
-//		System.out.println(list.size());
-		// dao.deleteAll();
+	
 
 	}
 

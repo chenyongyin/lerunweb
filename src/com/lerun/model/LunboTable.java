@@ -8,12 +8,12 @@ package com.lerun.model;
  */
 public class LunboTable {
 
-	int lunbo_id;
-	String lunbo_image;
-	String lunbo_url;
-	String lunbo_title;
-	String update_type;
-	String update_values;
+	private int lunbo_id;
+	private String lunbo_image;
+	private String lunbo_url;
+	private String lunbo_title;
+	private String update_type;
+	private String update_values;
 	
 	
 	public LunboTable(){}

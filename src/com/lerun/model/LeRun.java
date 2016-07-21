@@ -1,27 +1,27 @@
 package com.lerun.model;
 
 public class LeRun {
-	String lerun_id;
-	String lerun_title;
-	String lerun_content;
-	String lerun_poster;
-	String lerun_time;
-	String lerun_map;
-	String lerun_routine;
-	String lerun_host;
-	String lerun_charge;
-	String lerun_process;
-	String lerun_ruler;
-	String lerun_state;
-	String lerun_type;
-	String lerun_dimage;
-	String lerun_address;
-	String lerun_city;
-	String lerun_sponsor;
-	String lerun_maxuser;
-	String lerun_video;
-	String lerun_begintime;
-	String lerun_endtime;
+	private String lerun_id;
+	private String lerun_title;
+	private String lerun_content;
+	private String lerun_poster;
+	private String lerun_time;
+	private String lerun_map;
+	private String lerun_routine;
+	private String lerun_host;
+	private String lerun_charge;
+	private String lerun_process;
+	private String lerun_ruler;
+	private String lerun_state;
+	private String lerun_type;
+	private String lerun_dimage;
+	private String lerun_address;
+	private String lerun_city;
+	private String lerun_sponsor;
+	private String lerun_maxuser;
+	private String lerun_video;
+	private String lerun_begintime;
+	private String lerun_endtime;
 
 	public LeRun() {
 	}
