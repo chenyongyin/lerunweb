@@ -2,9 +2,7 @@ package com.lerun.service;
 
 import java.sql.SQLException;
 
-import javax.activation.CommandInfo;
 
-import com.lerun.bean.GeneralBean;
 import com.lerun.dao.OrderInfoDao;
 import com.lerun.dao.VoluntaryTableDao;
 import com.lerun.model.OrderInfo;
