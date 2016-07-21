@@ -54,10 +54,15 @@ public class VolunteerServlet extends HttpServlet {
 			volunteerService volunteerService = new volunteerService();
 			int lerun_id = Integer.parseInt(request.getParameter("lerun_id"));
 			String user_id = request.getParameter("user_id");
+			System.out.println("user_id"+user_id);
+			System.out.println("lerun_id"+lerun_id);
+			
+			
 			try {
 				beaninfo = volunteerService.returnVoluntaryInfo(lerun_id, user_id);
 				if (beaninfo != null) {
 					result = new ResponseObject(1, beaninfo);
+					System.out.println("result:"+new GsonBuilder().create().toJson(result));
 				} else {
 					result = new ResponseObject(0, "信息有误！");
 				}
