@@ -19,7 +19,7 @@ public class DBConnection {
 		// 3、定义连接数据库驱动程序
 
 		// 定义URL，数据库访问的地址
-		String DBURL = "jdbc:sqlserver://192.168.188.29:1433;DatabaseName=test";
+		String DBURL = "jdbc:sqlserver://192.168.0.19:1433;DatabaseName=test";
 
 		Connection conn = null;
 

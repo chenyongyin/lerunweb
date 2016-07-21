@@ -9,7 +9,7 @@ package com.lerun.bean;
 public class GeneralBean {
 
 	// userTable 用户表
-	String user_id;
+	public String user_id;
 	String user_name;
 	String user_pwd;
 	String user_birthday;

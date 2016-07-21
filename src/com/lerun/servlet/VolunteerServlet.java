@@ -2,92 +2,63 @@ package com.lerun.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.GsonBuilder;
+import com.lerun.bean.ResponseObject;
+import com.lerun.service.volunteerService;
+
 public class VolunteerServlet extends HttpServlet {
 
-	/**
-	 * Constructor of the object.
-	 */
 	public VolunteerServlet() {
 		super();
 	}
 
-	/**
-	 * Destruction of the servlet. <br>
-	 */
-	public void destroy() {
-		super.destroy(); // Just puts "destroy" string in log
-		// Put your code here
-	}
-
-	/**
-	 * The doGet method of the servlet. <br>
-	 *
-	 * This method is called when a form has its tag value method equals to get.
-	 * 
-	 * @param request the request send by the client to the server
-	 * @param response the response send by the server to the client
-	 * @throws ServletException if an error occurred
-	 * @throws IOException if an error occurred
-	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
-		out.println("<HTML>");
-		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
-		out.println("  <BODY>");
-		out.print("    This is ");
-		out.print(this.getClass());
-		out.println(", using the GET method");
-		out.println("  </BODY>");
-		out.println("</HTML>");
-		out.flush();
-		out.close();
+		this.doPost(request, response);
 	}
 
-	/**
-	 * The doPost method of the servlet. <br>
-	 *
-	 * This method is called when a form has its tag value method equals to post.
-	 * 
-	 * @param request the request send by the client to the server
-	 * @param response the response send by the server to the client
-	 * @throws ServletException if an error occurred
-	 * @throws IOException if an error occurred
-	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		response.setContentType("text/html");
+		response.setCharacterEncoding("utf-8");// 设置响应返回体参数 设置字符格式为utf-8
 		PrintWriter out = response.getWriter();
-		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
-		out.println("<HTML>");
-		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
-		out.println("  <BODY>");
-		out.print("    This is ");
-		out.print(this.getClass());
-		out.println(", using the POST method");
-		out.println("  </BODY>");
-		out.println("</HTML>");
+		ResponseObject result = null;
+		int index=0;
+		String flag = request.getParameter("flag");
+		System.out.println(flag);
+		if (flag.equals("vlogin") ) {
+			volunteerService volunteerService = new volunteerService();
+			int voluntary_id = Integer.parseInt(request.getParameter("vlid"));
+			String voluntary_pwd = request.getParameter("vlpwd");
+			try {
+				index = volunteerService.voluntaryLogin(voluntary_id,
+						voluntary_pwd);
+				System.out.println(index);
+				if (index == 1) {
+					result = new ResponseObject(1, "欢迎登录志愿者端！");
+				} else {
+					result = new ResponseObject(0, "登录失败！");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} else if (flag.equals("vscanf") ) {
+
+		} else if (flag.equals("vconfirm")) {
+
+		} else {
+			result = new ResponseObject(0, "请求失败，请检查请求操作！");
+		}
+		out.println(new GsonBuilder().create().toJson(result));
 		out.flush();
 		out.close();
-	}
-
-	/**
-	 * Initialization of the servlet. <br>
-	 *
-	 * @throws ServletException if an error occurs
-	 */
-	public void init() throws ServletException {
-		// Put your code here
 	}
 
 }
