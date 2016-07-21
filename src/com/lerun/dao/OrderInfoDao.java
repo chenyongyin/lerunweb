@@ -7,7 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lerun.bean.GeneralBean;
+
 import com.lerun.model.LeRun;
 import com.lerun.model.OrderInfo;
 import com.lerun.service.UserService;
@@ -62,15 +62,15 @@ public class OrderInfoDao {
 	}
 
 	// 返回给志愿者端的二维码信息
-	public GeneralBean returnVoluntaryInfo(int lerun_id, String user_id)
+	public OrderInfo returnVoluntaryInfo(int lerun_id, String user_id)
 			throws SQLException {
 
-		String sql = "select * from orderTable where lerun_id='"+lerun_id+"' and user_id='"+user_id+"'";
+		String sql = "select * from orderTable,lerunTable where orderTable.lerun_id=lerunTable.lerun_id and user_id='"+user_id+"' and orderTable.lerun_id='"+lerun_id+"'";
 		Connection conn = DB.getConnection();
 		Statement st = conn.createStatement();
 		ResultSet rs = st.executeQuery(sql);
 		while (rs.next()) {
-			GeneralBean bean = new GeneralBean();
+			OrderInfo bean = new OrderInfo();
 			bean.setLerun_title(rs.getString("lerun_title"));
 			bean.setLerun_id(rs.getInt("lerun_id"));
 			bean.setLerun_charge(rs.getString("lerun_charge"));

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.Gson;
-import com.lerun.bean.GeneralBean;
 import com.lerun.bean.ResponseObject;
 import com.lerun.dao.CommentTableDao;
 import com.lerun.dao.LikeTableDao;
@@ -13,6 +12,7 @@ import com.lerun.dao.LunboTableDao;
 import com.lerun.dao.ShowTableDao;
 import com.lerun.model.ShowTable;
 import com.lerun.model.UserInfo;
+import com.lerun.model.commentTable;
 import com.lerun.utils.DividePageUtil;
 import com.lerun.utils.GsonTools;
 import com.lerun.utils.JsonTools;
@@ -155,7 +155,7 @@ public class ShowService {
 	// 获取show的点赞信息
 	public String QueryShowLike(int show_id) throws SQLException {
 
-		List<GeneralBean> data = commentDao.QueryComment(show_id);
+		List<commentTable> data = commentDao.QueryComment(show_id);
 		if (data != null && data.size() != 0) {
 			response = new ResponseObject(1, data);
 			result = GsonTools.createJsonString(response);

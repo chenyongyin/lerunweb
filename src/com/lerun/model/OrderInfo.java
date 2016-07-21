@@ -8,9 +8,25 @@ public class OrderInfo {
 	private String sign_state;
 	private String charge_state;
 	private String sign_barcode;
+	public String getLerun_title() {
+		return lerun_title;
+	}
+	public void setLerun_title(String lerun_title) {
+		this.lerun_title = lerun_title;
+	}
+	public String getLerun_charge() {
+		return lerun_charge;
+	}
+	public void setLerun_charge(String lerun_charge) {
+		this.lerun_charge = lerun_charge;
+	}
 	private String signup_time;
 	private String pay_time;
 	private String sign_time;
+	
+	private String lerun_title;
+	private String lerun_charge;
+	
 	public int getOrder_num() {
 		return order_num;
 	}

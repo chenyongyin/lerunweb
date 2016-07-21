@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lerun.bean.GeneralBean;
+
 import com.lerun.dao.LeRunDao;
 import com.lerun.dao.OrderInfoDao;
 import com.lerun.model.LeRun;

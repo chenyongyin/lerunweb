@@ -21,6 +21,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import com.lerun.bean.ResponseObject;
+import com.lerun.bean.imageBean;
 import com.lerun.model.ShowTable;
 import com.lerun.utils.ContentCommon;
 import com.lerun.utils.GsonTools;
@@ -99,12 +100,12 @@ public class UploadServlet extends HttpServlet {
 		try {
 			List<FileItem> list = servletFileUpload.parseRequest(request);
 			System.out.println("list大小" + list.size());
-			List<ShowTable> imagelist = new ArrayList<ShowTable>();
+			List<imageBean> imagelist = new ArrayList<imageBean>();
 			for (FileItem item : list) {
 				String name = item.getFieldName();
 				InputStream is = item.getInputStream();
 
-				ShowTable showbean = new ShowTable();
+				imageBean bean = new imageBean();
 				if (name.contains("content")) {
 					System.out.println(inputStream2String(is));
 				} else if (name.contains("img")) {
@@ -113,8 +114,8 @@ public class UploadServlet extends HttpServlet {
 						returnPath = ContentCommon.ImagePath + "image/"
 								+ item.getName();
 						inputStream2File(is, path);
-						showbean.setShow_image(returnPath);
-						imagelist.add(showbean);
+						bean.setImagePath(returnPath);
+						imagelist.add(bean);
 						// break;
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -122,11 +123,14 @@ public class UploadServlet extends HttpServlet {
 				}
 
 				ResponseObject responseObject = new ResponseObject(1, imagelist);
+//				ResponseObject responseObject = new ResponseObject(1,showbean.getShow_image() );
 				returnImagePath= GsonTools
 						.createJsonString(responseObject);
+				System.out.println(returnImagePath);
 
 			}
 			out.write(returnImagePath); // 这里我把服务端成功后，返回给客户端的是上传成功后路径
+			
 		} catch (FileUploadException e) {
 			e.printStackTrace();
 			System.out.println("failure");
