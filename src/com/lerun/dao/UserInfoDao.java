@@ -37,9 +37,9 @@ public class UserInfoDao {
 
 	// 用户修改信息
 	public int upDateInfo(UserInfo info) throws SQLException {
-		String sql = "update userTable set " + info.getUpdate_type() + "="
-				+ info.getUpdate_values() + " where user_id="
-				+ info.getUser_id() + "";
+		String sql = "update userTable set " + info.getUpdate_type() + "='"
+				+ info.getUpdate_values() + "' where user_id='"
+				+ info.getUser_id() + "'";
 
 		Connection conn = DB.getConnection();
 		Statement st = conn.createStatement();

@@ -2,12 +2,12 @@ package com.lerun.bean;
 
 public class ResponseObject {
 
-	int stage;// 状态码
+	int state;// 状态码
 	Object datas;// 数据
 
-	public ResponseObject(int stage, Object datas) {
+	public ResponseObject(int state, Object datas) {
 		super();
-		this.stage = stage;
+		this.state = state;
 		this.datas = datas;
 	}
 
@@ -17,11 +17,11 @@ public class ResponseObject {
 	}
 
 	public int getStage() {
-		return stage;
+		return state;
 	}
 
 	public void setStage(int stage) {
-		this.stage = stage;
+		this.state = stage;
 		
 	}
 

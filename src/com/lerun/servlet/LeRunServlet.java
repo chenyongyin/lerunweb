@@ -99,8 +99,11 @@ public class LeRunServlet extends HttpServlet {
 				info.setUser_id(request.getParameter("user_id"));
 				info.setUpdate_type(request.getParameter("update_type"));
 				info.setUpdate_values(request.getParameter("update_values"));
+				System.out.println("update_type:"+request.getParameter("update_type"));
+				System.out.println("update_values:"+request.getParameter("update_values"));
 				try {
 					result = service.upDateInfo(info);
+					System.out.println("result"+result);
 					out.print(result);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
