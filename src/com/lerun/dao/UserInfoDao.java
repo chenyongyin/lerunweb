@@ -6,7 +6,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import com.lerun.model.UserInfo;
+import com.lerun.utils.ContentCommon;
 import com.lerun.utils.DBConnection;
+import com.lerun.utils.DeleteFile;
 
 /**
  * action：对用户的操作
@@ -41,9 +43,17 @@ public class UserInfoDao {
 				+ info.getUpdate_values() + "' where user_id='"
 				+ info.getUser_id() + "'";
 
+		if (info.getUpdate_type().equals("user_header")) {
+			String user_header = getHeader(info.getUser_id());
+			String fileName = ContentCommon.FileName + user_header;
+			DeleteFile.deleteFile(fileName);
+		}
 		Connection conn = DB.getConnection();
 		Statement st = conn.createStatement();
 		int result = st.executeUpdate(sql);
+		// 如果是更新用户头像 则执行删除用户旧的头像
+		
+
 		DB.closeAll(null, st, conn);
 		return result;
 	}
@@ -72,7 +82,7 @@ public class UserInfoDao {
 		ResultSet rs = st.executeQuery(sql);
 		while (rs.next()) {
 			UserInfo info = new UserInfo();
-			info.setUser_address(rs.getString("user_id"));
+			info.setUser_address(rs.getString("user_address"));
 			info.setUser_bankid(rs.getString("user_bankid"));
 			info.setUser_email(rs.getString("user_email"));
 			info.setUser_fullname(rs.getString("user_fullname"));
@@ -88,6 +98,8 @@ public class UserInfoDao {
 			info.setUser_sex(rs.getString("user_sex"));
 			info.setUser_state(rs.getString("user_state"));
 			info.setUser_weight(rs.getString("user_weight"));
+			info.setUser_sign(rs.getString("user_sign"));
+			info.setUser_phone(rs.getString("user_phone"));
 
 			return info;
 
@@ -96,20 +108,34 @@ public class UserInfoDao {
 		return null;
 	}
 
+	private String getHeader(String user_id) throws SQLException {
+		String sql = "select user_header from userTable where user_id="
+				+ user_id + "";
+		Connection conn = DB.getConnection();
+		Statement st = conn.createStatement();
+		ResultSet rs = st.executeQuery(sql);
+		while (rs.next()) {
+			String user_header = rs.getString("user_header");
+			return user_header;
+		}
+		DB.closeAll(rs, st, conn);
+		return null;
+
+	}
+
 	public static void main(String[] args) throws SQLException {
-		UserInfoDao dao=new UserInfoDao();
-//		dao.Register("123", "admin");
-		UserInfo info=new UserInfo();
+		UserInfoDao dao = new UserInfoDao();
+		// dao.Register("123", "admin");
+		UserInfo info = new UserInfo();
 		info.setUpdate_type("user_name");
 		info.setUpdate_values("2222");
-//		info.set
-//		String result=dao.Login("125");
-//		System.out.println("r"+result);
+		// info.set
+		// String result=dao.Login("125");
+		// System.out.println("r"+result);
 
 	}
 	/**
-	 * 测试内容
-	 * 注册：1   
+	 * 测试内容 注册：1
 	 */
 
 }

@@ -79,7 +79,7 @@ public class LikeTableDao {
 			info.setUser_id(rs.getString("user_id"));
 			info.setUser_name(rs.getString("user_name"));
 			info.setLike_time(rs.getString("like_time"));
-			info.setUser_header(rs.getString("like_time"));
+			info.setUser_header(rs.getString("user_header"));
 			list.add(info);
 
 		}

@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import com.lerun.dao.LeRunDao;
 import com.lerun.dao.OrderInfoDao;
 import com.lerun.model.LeRun;
@@ -30,10 +29,10 @@ public class LeRunService {
 	// 查询所有未结束的活动
 	public String QueryAll() throws SQLException {
 		List<LeRun> data = dao.QueryAllLerun();
-		if (data != null&&!data.isEmpty()) {
+		if (data != null && !data.isEmpty()) {
 			result = JsonTools.createJsonString("result", data);
-		}else{
-			result="empty";
+		} else {
+			result = "empty";
 		}
 
 		return result;
@@ -44,11 +43,9 @@ public class LeRunService {
 		LeRun data = dao.QueryDetailLerun(lerun_id);
 		if (data != null) {
 			result = JsonTools.createJsonString("result", data);
-		}else{
-			result="empty";
 		}
 
-		return result;
+		return "faliure";
 	}
 
 	// 更新活动
@@ -76,9 +73,10 @@ public class LeRunService {
 	}
 
 	// 用户付款成功
-	public int paySuccess(String QRcode_Path, int lerun_id, String user_id)
-			throws SQLException {
-		int result = orderDao.paySuccess(QRcode_Path, user_id, lerun_id);
+	public int paySuccess(String QRcode_Path, int payment, int lerun_id,
+			String user_id) throws SQLException {
+		int result = orderDao.paySuccess(QRcode_Path, payment, user_id,
+				lerun_id);
 		if (result == 1) {
 			flag = 1;
 		}
@@ -102,7 +100,7 @@ public class LeRunService {
 			} else {
 				result = "failure";
 			}
-		}else{
+		} else {
 			result = "failure";
 		}
 		return result;

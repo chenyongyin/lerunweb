@@ -46,11 +46,11 @@ public class OrderInfoDao {
 	}
 
 	// 用户付款成功 更改信息
-	public int paySuccess(String QRcode_Path, String user_id, int lerun_id)
+	public int paySuccess(String QRcode_Path,int payment,String user_id, int lerun_id)
 			throws SQLException {
 		String sql = "update orderTable set charge_state='1',sign_barcode='"
 				+ QRcode_Path
-				+ "',pay_time=(select CONVERT(varchar(20), getdate(), 120)) where user_id='"
+				+ "',pay_time=(select CONVERT(varchar(20), getdate(), 120)),payment='"+payment+"' where user_id='"
 				+ user_id + "' and lerun_id='" + lerun_id + "'";
 		Connection conn = DB.getConnection();
 		Statement st = conn.createStatement();
@@ -73,7 +73,7 @@ public class OrderInfoDao {
 			OrderInfo bean = new OrderInfo();
 			bean.setLerun_title(rs.getString("lerun_title"));
 			bean.setLerun_id(rs.getInt("lerun_id"));
-			bean.setLerun_charge(rs.getString("lerun_charge"));
+			bean.setPayment(Integer.parseInt(rs.getString("payment")));
 			bean.setUser_id(rs.getString("user_id"));
 			bean.setPay_time(rs.getString("pay_time"));
 			bean.setSign_state(rs.getString("sign_state"));
@@ -226,7 +226,7 @@ public class OrderInfoDao {
 //		 dao.QueryViewExist("1234");
 		// System.out.println(dao.createView("1234567"));
 //		System.out.println(dao.checkSignUp(999, "1235"));
-		 int result=dao.paySuccess("", "", 1);
+		 int result=dao.paySuccess("",100, "123", 999);
 		 System.out.println(result);
 		 if(result==1){
 			 System.out.println("ggygy");

@@ -8,6 +8,14 @@ public class OrderInfo {
 	private String sign_state;
 	private String charge_state;
 	private String sign_barcode;
+	
+	private int payment;
+	public int getPayment() {
+		return payment;
+	}
+	public void setPayment(int payment) {
+		this.payment = payment;
+	}
 	public String getLerun_title() {
 		return lerun_title;
 	}
