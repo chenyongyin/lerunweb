@@ -19,6 +19,38 @@ public class LeRun {
 	private String lerun_city;
 	private String lerun_sponsor;
 	private String lerun_maxuser;
+
+	public LeRun(String lerun_id, String lerun_title, String lerun_content,
+			String lerun_poster, String lerun_time, String lerun_map,
+			String lerun_routine, String lerun_host, String lerun_charge,
+			String lerun_process, String lerun_ruler, String lerun_state,
+			String lerun_type, String lerun_dimage, String lerun_address,
+			String lerun_city, String lerun_sponsor, String lerun_maxuser,
+			String lerun_video, String lerun_begintime, String lerun_endtime) {
+		super();
+		this.lerun_id = lerun_id;
+		this.lerun_title = lerun_title;
+		this.lerun_content = lerun_content;
+		this.lerun_poster = lerun_poster;
+		this.lerun_time = lerun_time;
+		this.lerun_map = lerun_map;
+		this.lerun_routine = lerun_routine;
+		this.lerun_host = lerun_host;
+		this.lerun_charge = lerun_charge;
+		this.lerun_process = lerun_process;
+		this.lerun_ruler = lerun_ruler;
+		this.lerun_state = lerun_state;
+		this.lerun_type = lerun_type;
+		this.lerun_dimage = lerun_dimage;
+		this.lerun_address = lerun_address;
+		this.lerun_city = lerun_city;
+		this.lerun_sponsor = lerun_sponsor;
+		this.lerun_maxuser = lerun_maxuser;
+		this.lerun_video = lerun_video;
+		this.lerun_begintime = lerun_begintime;
+		this.lerun_endtime = lerun_endtime;
+	}
+
 	private String lerun_video;
 	private String lerun_begintime;
 	private String lerun_endtime;

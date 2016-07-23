@@ -140,7 +140,7 @@ public class ShowService {
 
 	// 获取show的评论信息
 	public String QueryShowComment(int show_id) throws SQLException {
-		List<UserInfo> data = likeDao.QueryLikeUser(show_id);
+		List<commentTable> data = commentDao.QueryComment(show_id);
 		if (data != null && data.size() != 0) {
 			ResponseObject response = new ResponseObject(1, data);
 			result = GsonTools.createJsonString(response);
@@ -155,7 +155,8 @@ public class ShowService {
 	// 获取show的点赞信息
 	public String QueryShowLike(int show_id) throws SQLException {
 
-		List<commentTable> data = commentDao.QueryComment(show_id);
+		
+		List<UserInfo> data = likeDao.QueryLikeUser(show_id);
 		if (data != null && data.size() != 0) {
 			response = new ResponseObject(1, data);
 			result = GsonTools.createJsonString(response);

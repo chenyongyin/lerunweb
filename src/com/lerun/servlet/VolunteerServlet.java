@@ -87,6 +87,7 @@ public class VolunteerServlet extends HttpServlet {
 			result = new ResponseObject(0, "请求失败，请检查请求操作！");
 		}
 		out.println(new GsonBuilder().create().toJson(result));
+		System.out.println(new GsonBuilder().create().toJson(result));
 		out.flush();
 		out.close();
 	}

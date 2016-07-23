@@ -85,7 +85,7 @@ public class UploadServlet extends HttpServlet {
 		String returnPath = null;
 		// 设置文件上传路径
 		String upload = this.getServletContext().getRealPath("/");
-
+		ContentCommon.FileName=upload;
 		System.out.println("upload" + upload);
 		// 获取系统默认的临时文件保存路径，该路径为Tomcat根目录下的temp文件夹
 		String temp = System.getProperty("java.io.tmpdir");
@@ -110,9 +110,8 @@ public class UploadServlet extends HttpServlet {
 					System.out.println(inputStream2String(is));
 				} else if (name.contains("img")) {
 					try {
-						path = upload + "userlog/" + item.getName();
-						returnPath = ContentCommon.ImagePath + "image/"
-								+ item.getName();
+						path = upload + "image/" + item.getName();
+						returnPath = "image/" + item.getName();
 						inputStream2File(is, path);
 						bean.setImagePath(returnPath);
 						imagelist.add(bean);
@@ -123,14 +122,14 @@ public class UploadServlet extends HttpServlet {
 				}
 
 				ResponseObject responseObject = new ResponseObject(1, imagelist);
-//				ResponseObject responseObject = new ResponseObject(1,showbean.getShow_image() );
-				returnImagePath= GsonTools
-						.createJsonString(responseObject);
+				// ResponseObject responseObject = new
+				// ResponseObject(1,showbean.getShow_image() );
+				returnImagePath = GsonTools.createJsonString(responseObject);
 				System.out.println(returnImagePath);
 
 			}
 			out.write(returnImagePath); // 这里我把服务端成功后，返回给客户端的是上传成功后路径
-			
+
 		} catch (FileUploadException e) {
 			e.printStackTrace();
 			System.out.println("failure");

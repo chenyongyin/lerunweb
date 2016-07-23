@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.lerun.model.LeRun;
+import com.lerun.model.ShowTable;
 import com.lerun.model.UserInfo;
 import com.lerun.service.LeRunService;
 import com.lerun.service.LunBoService;
@@ -53,6 +54,7 @@ public class LeRunServlet extends HttpServlet {
 		int index = Integer.parseInt(request.getParameter("index"));
 
 		System.out.println("flag标记：" + flag);
+		System.out.println("index标记:" + index);
 
 		if (flag.equals("user")) {
 			// index表示的操作 0：表示注册 1：表示登陆 2：表示注销 3：表示修改信息 4：表示查看用户信息
@@ -99,11 +101,13 @@ public class LeRunServlet extends HttpServlet {
 				info.setUser_id(request.getParameter("user_id"));
 				info.setUpdate_type(request.getParameter("update_type"));
 				info.setUpdate_values(request.getParameter("update_values"));
-				System.out.println("update_type:"+request.getParameter("update_type"));
-				System.out.println("update_values:"+request.getParameter("update_values"));
+				System.out.println("update_type:"
+						+ request.getParameter("update_type"));
+				System.out.println("update_values:"
+						+ request.getParameter("update_values"));
 				try {
 					result = service.upDateInfo(info);
-					System.out.println("result"+result);
+					System.out.println("result" + result);
 					out.print(result);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -115,6 +119,7 @@ public class LeRunServlet extends HttpServlet {
 				String user_id4 = request.getParameter("user_id");
 				try {
 					jsonSting = service.QueryInfo(user_id4);
+					System.out.println("获取用户信息：" + jsonSting);
 					out.print(jsonSting);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -206,9 +211,10 @@ public class LeRunServlet extends HttpServlet {
 				int lerun_id5 = Integer.parseInt(request
 						.getParameter("lerun_id"));
 				String QRcode_Path = request.getParameter("QRcode_Path");
+				int payment = Integer.parseInt(request.getParameter("payment"));
 				try {
-					result = service.paySuccess(QRcode_Path, lerun_id5,
-							user_id5);
+					result = service.paySuccess(QRcode_Path, payment,
+							lerun_id5, user_id5);
 					out.print(result);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -239,6 +245,17 @@ public class LeRunServlet extends HttpServlet {
 			ShowService showSerview = new ShowService();
 			switch (index) {
 			case 0:
+				ShowTable show = new ShowTable();
+				show.setUser_id(request.getParameter("user_id"));
+				show.setShow_content(request.getParameter("show_content"));
+				show.setShow_image(request.getParameter("show_image"));
+				try {
+					result = showSerview.ReleaseShow(show);
+					out.print(result);
+				} catch (SQLException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
 
 				break;
 			// 删除show
@@ -362,11 +379,11 @@ public class LeRunServlet extends HttpServlet {
 		// 获取lunbo信息 包括轮播视频 轮播图片
 		else if (flag.endsWith("lunbo")) {
 			// index: 0 获取图片1获取视频
-			LunBoService service=new LunBoService();
+			LunBoService service = new LunBoService();
 			switch (index) {
 			case 0:
 				try {
-					jsonSting=service.getImageData();
+					jsonSting = service.getImageData();
 					out.print(jsonSting);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -376,7 +393,7 @@ public class LeRunServlet extends HttpServlet {
 				break;
 			case 1:
 				try {
-					jsonSting=service.getVideoData();
+					jsonSting = service.getVideoData();
 					out.print(jsonSting);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block

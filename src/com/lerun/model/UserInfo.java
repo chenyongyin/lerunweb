@@ -26,7 +26,25 @@ public class UserInfo {
 	private String user_state;
 	private String update_type;
 	private String update_values;
+	private String user_sign;
+	public String getUser_phone() {
+		return user_phone;
+	}
+
+	public void setUser_phone(String user_phone) {
+		this.user_phone = user_phone;
+	}
+
+	private String user_phone;
 	
+	public String getUser_sign() {
+		return user_sign;
+	}
+
+	public void setUser_sign(String user_sign) {
+		this.user_sign = user_sign;
+	}
+
 	private String like_time;//点赞的时间
 
 	public String getLike_time() {
