@@ -6,11 +6,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
-
 import com.lerun.model.LeRun;
 import com.lerun.model.OrderInfo;
-import com.lerun.service.UserService;
 import com.lerun.utils.DBConnection;
 
 public class OrderInfoDao {
@@ -46,12 +43,13 @@ public class OrderInfoDao {
 	}
 
 	// 用户付款成功 更改信息
-	public int paySuccess(String QRcode_Path,int payment,String user_id, int lerun_id)
-			throws SQLException {
+	public int paySuccess(String QRcode_Path, int payment, String user_id,
+			int lerun_id) throws SQLException {
 		String sql = "update orderTable set charge_state='1',sign_barcode='"
 				+ QRcode_Path
-				+ "',pay_time=(select CONVERT(varchar(20), getdate(), 120)),payment='"+payment+"' where user_id='"
-				+ user_id + "' and lerun_id='" + lerun_id + "'";
+				+ "',pay_time=(select CONVERT(varchar(20), getdate(), 120)),payment='"
+				+ payment + "' where user_id='" + user_id + "' and lerun_id='"
+				+ lerun_id + "'";
 		Connection conn = DB.getConnection();
 		Statement st = conn.createStatement();
 		int result = st.executeUpdate(sql);
@@ -65,7 +63,8 @@ public class OrderInfoDao {
 	public OrderInfo returnVoluntaryInfo(int lerun_id, String user_id)
 			throws SQLException {
 
-		String sql = "select * from orderTable,lerunTable where orderTable.lerun_id=lerunTable.lerun_id and user_id='"+user_id+"' and orderTable.lerun_id='"+lerun_id+"'";
+		String sql = "select * from orderTable,lerunTable where orderTable.lerun_id=lerunTable.lerun_id and user_id='"
+				+ user_id + "' and orderTable.lerun_id='" + lerun_id + "'";
 		Connection conn = DB.getConnection();
 		Statement st = conn.createStatement();
 		ResultSet rs = st.executeQuery(sql);
@@ -120,7 +119,7 @@ public class OrderInfoDao {
 	public int createView(String user_id) throws SQLException {
 		String sql = "create view viewlerun_"
 				+ user_id
-				+ " as select lerun_id,lerun_title,lerun_poster,lerun_type,lerun_time,lerun_state from lerunTable where lerunTable.lerun_id in(select orderTable.lerun_id from orderTable,lerunTable where orderTable.lerun_id=lerunTable.lerun_id and user_id='"
+				+ " as select lerun_id,lerun_title,lerun_address,lerun_poster,lerun_type,lerun_time,lerun_state from lerunTable where lerunTable.lerun_id in(select orderTable.lerun_id from orderTable,lerunTable where orderTable.lerun_id=lerunTable.lerun_id and user_id='"
 				+ user_id + "')";
 		Connection conn = DB.getConnection();
 
@@ -146,6 +145,7 @@ public class OrderInfoDao {
 			lerun.setLerun_type(rs.getString("lerun_type"));
 			lerun.setLerun_poster(rs.getString("lerun_poster"));
 			lerun.setLerun_state(rs.getString("lerun_state"));
+			lerun.setLerun_address(rs.getString("lerun_address"));
 			lerun.setLerun_id(rs.getString("lerun_id"));
 
 			list.add(lerun);
@@ -222,17 +222,19 @@ public class OrderInfoDao {
 	// 统计单个活动的金额
 
 	public static void main(String[] args) throws SQLException {
-		OrderInfoDao dao = new OrderInfoDao();
-//		 dao.QueryViewExist("1234");
-		// System.out.println(dao.createView("1234567"));
-//		System.out.println(dao.checkSignUp(999, "1235"));
-		 int result=dao.paySuccess("",100, "123", 999);
-		 System.out.println(result);
-		 if(result==1){
-			 System.out.println("ggygy");
-		 }else{
-			 System.err.println("aaaaa");
-		 }
+		// OrderInfoDao dao = new OrderInfoDao();
+		// // dao.QueryViewExist("1234");
+		// // System.out.println(dao.createView("1234567"));
+		// // System.out.println(dao.checkSignUp(999, "1235"));
+		// int result=dao.paySuccess("",100, "123", 999);
+		// System.out.println(result);
+		// if(result==1){
+		// System.out.println("ggygy");
+		// }else{
+		// System.err.println("aaaaa");
+		// }
+
+		
 
 	}
 }

@@ -225,14 +225,25 @@ public class LeRunServlet extends HttpServlet {
 
 			case 6:
 				String user_id6 = request.getParameter("user_id");
+				System.out.println("用户id" + user_id6);
 				try {
 					jsonSting = service.QueryPersonalLerun(user_id6);
 					out.print(jsonSting);
+					System.out.println(jsonSting);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				break;
+			// 查询结束的活动
+			case 7:
+				try {
+					jsonSting = service.QueryEnd();
+					out.print(jsonSting);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
 			default:
 				break;
@@ -249,8 +260,12 @@ public class LeRunServlet extends HttpServlet {
 				show.setUser_id(request.getParameter("user_id"));
 				show.setShow_content(request.getParameter("show_content"));
 				show.setShow_image(request.getParameter("show_image"));
+				System.out.println("用户发布show的图片"
+						+ request.getParameter("show_image"));
+
 				try {
 					result = showSerview.ReleaseShow(show);
+					System.out.println("发布show:" + result);
 					out.print(result);
 				} catch (SQLException e2) {
 					// TODO Auto-generated catch block
@@ -276,10 +291,12 @@ public class LeRunServlet extends HttpServlet {
 						.getParameter("pageSize"));
 				int currentPage = Integer.parseInt(request
 						.getParameter("currentPage"));
-
+				System.out.println("pageSize:" + pageSize);
+				System.out.println("currentPage:" + currentPage);
 				try {
 					jsonSting = showSerview.QueryAllShow(pageSize, currentPage);
 					out.print(jsonSting);
+					System.out.println("获取全部show：" + jsonSting);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -292,6 +309,7 @@ public class LeRunServlet extends HttpServlet {
 				try {
 					jsonSting = showSerview.QueryPersonalShow(user_id);
 					out.print(jsonSting);
+					System.out.println("查看自己的show：" + jsonSting);
 
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -303,8 +321,10 @@ public class LeRunServlet extends HttpServlet {
 			case 4:
 				int show_id2 = Integer
 						.parseInt(request.getParameter("show_id"));
+				System.out.println("获取show的评论时show_id"+ show_id2);
 				try {
 					jsonSting = showSerview.QueryShowComment(show_id2);
+					System.out.println("获取show的评论"+jsonSting);
 					out.print(jsonSting);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -361,6 +381,10 @@ public class LeRunServlet extends HttpServlet {
 				String like_userid8 = request.getParameter("like_userid");
 				int show_id8 = Integer
 						.parseInt(request.getParameter("show_id"));
+				System.out.println("点赞用户的id:" + user_id8);
+				System.out.println("点赞show_id:" + show_id8);
+				System.out.println("被点赞用户like_userid8:" + like_userid8);
+				
 				try {
 					jsonSting = showSerview.ReleaseLike(user_id8, show_id8,
 							like_userid8);

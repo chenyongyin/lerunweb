@@ -38,6 +38,19 @@ public class LeRunService {
 		return result;
 	}
 
+	// 查看结束的活动
+	public String QueryEnd() throws SQLException {
+		List<LeRun> data = dao.QueryEndLerun();
+
+		if (data != null && !data.isEmpty()) {
+			result = JsonTools.createJsonString("result", data);
+		} else {
+			result = "empty";
+		}
+
+		return result;
+	}
+
 	// 查看活动详细信息
 	public String QueryDetail(int lerun_id) throws SQLException {
 		LeRun data = dao.QueryDetailLerun(lerun_id);
@@ -107,9 +120,12 @@ public class LeRunService {
 
 	}
 
+	//
+
 	public static void main(String[] args) throws SQLException {
 		LeRunService service = new LeRunService();
-		String result = service.QueryAll();
+		String result = service.QueryPersonalLerun("123");
+		System.out.println(result);
 
 	}
 

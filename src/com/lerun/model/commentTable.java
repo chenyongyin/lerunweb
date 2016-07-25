@@ -14,8 +14,6 @@ public class commentTable {
 	private String comment_content;
 	private String comment_time;
 	private String comment_userid;//被评论者的id
-	
-	
 	private String user_header;
 	private String user_name;
 	public String getComment_userid() {

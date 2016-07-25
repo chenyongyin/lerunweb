@@ -7,8 +7,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lerun.bean.ResponseObject;
 import com.lerun.model.commentTable;
 import com.lerun.utils.DBConnection;
+import com.lerun.utils.GsonTools;
 
 /**
  *@Author: wschenyongyin
@@ -70,6 +72,10 @@ public class CommentTableDao {
 			bean.setUser_id(rs.getString("user_id"));// 评论者的id
 			bean.setUser_header(rs.getString("user_header"));
 			bean.setUser_name(rs.getString("user_name"));
+			bean.setShow_id(show_id);
+			
+			
+			System.out.println("用户头像"+bean.getUser_header());
 			list.add(bean);
 		}
 		DB.closeAll(rs, st, conn);
@@ -94,10 +100,12 @@ public class CommentTableDao {
 	
 	public static void main(String[] args) throws SQLException {
 		CommentTableDao dao = new CommentTableDao();
-		int result = dao.Releasecomment(999, "1234", "康康是个小煞笔", "123");
+//		int result = dao.Releasecomment(999, "1234", "康康是个小煞笔", "123");
 		// int result =dao.deleteComment(2);
-//		List<GeneralBean> list=dao.QueryComment(999);
-//		System.out.println("result:" + result +"list大小："+list.size());
+		List<commentTable> list=dao.QueryComment(1000);
+		ResponseObject object=new ResponseObject(1, list);
+		String result=GsonTools.createJsonString(object);
+		System.out.println("result:" + result +"list大小："+list.size());
 
 	}
 

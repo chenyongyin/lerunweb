@@ -130,6 +130,35 @@ public class LeRunDao {
 		DB.closeAll(rs, st, conn);
 		return null;
 	}
+	
+	
+	
+	//查看结束的活动
+	public List<LeRun> QueryEndLerun() throws SQLException {
+		String sql = "select * from lerunTable where lerun_state='3' order by lerun_id desc";
+		Connection conn = DB.getConnection();
+		Statement st = conn.createStatement();
+		ResultSet rs = st.executeQuery(sql);
+		List<LeRun> list = new ArrayList<LeRun>();
+		List<LeRun> list2=new ArrayList<LeRun>();
+		while (rs.next()) {
+			LeRun lerun = new LeRun();
+
+			lerun.setLerun_title(rs.getString("lerun_title"));
+			lerun.setLerun_time(rs.getString("lerun_time"));
+			lerun.setLerun_address(rs.getString("lerun_address"));
+			lerun.setLerun_poster(rs.getString("lerun_poster"));
+			lerun.setLerun_state(rs.getString("lerun_state"));
+			lerun.setLerun_id(rs.getString("lerun_id"));
+
+			list.add(lerun);
+			return list;
+		}
+		DB.closeAll(rs, st, conn);
+		return null;
+	}
+	
+	
 
 	// 修改活动信息
 

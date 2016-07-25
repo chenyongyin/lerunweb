@@ -28,7 +28,7 @@ public class ShowService {
 	ShowTableDao showDao = new ShowTableDao();
 	LikeTableDao likeDao = new LikeTableDao();
 	CommentTableDao commentDao = new CommentTableDao();
-	LunboTableDao lunboDao=new LunboTableDao();
+	LunboTableDao lunboDao = new LunboTableDao();
 	ResponseObject response;
 
 	int flag = 0;
@@ -43,7 +43,7 @@ public class ShowService {
 		} else {
 			flag = 0;
 		}
-		
+
 		return flag;
 	}
 
@@ -79,7 +79,7 @@ public class ShowService {
 			// 判断是否还有内容
 			if (currentPage * pageSize <= pageSize * pageNumber) {
 				subData = data.subList(fromIndex, toIndex);
-				response=new ResponseObject(1, subData);
+				response = new ResponseObject(1, subData);
 				result = GsonTools.createJsonString(response);
 				System.out.println("1大小" + subData.size());
 
@@ -87,19 +87,20 @@ public class ShowService {
 					&& currentPage * pageSize < pageSize + data.size()) {
 
 				subData = data.subList(fromIndex, data.size());
-				response=new ResponseObject(1, subData);
+				response = new ResponseObject(1, subData);
 				result = GsonTools.createJsonString(response);
 				System.out.println("起始id" + fromIndex);
 			} else {
-				response=new ResponseObject(1, "没有更多内容了");
+				response = new ResponseObject(1, "没有更多内容了");
 				result = GsonTools.createJsonString(response);
 				System.out.println("没有内容了");
 				return null;
 			}
 
 		} else {
-			response=new ResponseObject(0, "获取数据失败");
-			result = GsonTools.createJsonString(response);;
+			response = new ResponseObject(0, "获取数据失败");
+			result = GsonTools.createJsonString(response);
+			;
 		}
 
 		return result;
@@ -155,7 +156,6 @@ public class ShowService {
 	// 获取show的点赞信息
 	public String QueryShowLike(int show_id) throws SQLException {
 
-		
 		List<UserInfo> data = likeDao.QueryLikeUser(show_id);
 		if (data != null && data.size() != 0) {
 			response = new ResponseObject(1, data);
@@ -219,7 +219,8 @@ public class ShowService {
 	public static void main(String[] args) throws SQLException {
 		ShowService showService = new ShowService();
 		// showService.QueryAllShow(2, 2);
-		String Result = showService.QueryAllShow(5,4);
+		String Result = showService.QueryShowComment(1000);
+//		String Result = showService.QueryAllShow(2, 0);
 		System.out.println(Result);
 
 	}

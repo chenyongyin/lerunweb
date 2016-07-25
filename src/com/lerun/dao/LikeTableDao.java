@@ -105,8 +105,8 @@ public class LikeTableDao {
 		LikeTableDao dao = new LikeTableDao();
 		// int result=dao.countLikeNumber(999);
 		// List<UserInfo> result=dao.QueryLikeUser(999);
-		int result = dao.countLikeNumber(1000);
-		System.out.println("result:" + result);
+		List<UserInfo> list=dao.QueryLikeUser(1000);
+		System.out.println("result:" + list.size());
 
 	}
 

@@ -13,6 +13,24 @@ public class ShowTable {
 	private String show_time;
 	private int comment_num;
 	private int like_num;
+	private String user_header;
+	private String user_name;
+
+	public String getUser_header() {
+		return user_header;
+	}
+
+	public void setUser_header(String user_header) {
+		this.user_header = user_header;
+	}
+
+	public String getUser_name() {
+		return user_name;
+	}
+
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
 
 	private int like_state;
 
