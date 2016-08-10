@@ -2,19 +2,26 @@ package com.lerun.utils;
 
 import java.util.Random;
 
-
-
 /**
- * @Author: wschenyongyin
- * @Date: 2016-7-15
- * @explain:随机生成字符串
- * @TestState:
+ *@Project: LeRun
+ *@Author: wschenyongyin
+ *@Date: 2016年8月10日
+ *@explain:
+ *@TestState:
  */
-public class RandomString {
 
-	public RandomString() {
-	};
-
+public class RandomUtils {
+	
+	public RandomUtils(){}
+	
+	//产生特定范围内的随机整数
+	public static int getRandomInt(int max,int min){
+		Random random=new Random();
+		int randNum = random.nextInt(max-min)+min;
+		return randNum;
+	}
+	
+	//产生特定长度的字符串
 	public static String getRandomString(int length) { // length表示生成字符串的长度
 
 		String base = "abcdefghijklmnopqrstuvwxyz0123456789";
@@ -26,4 +33,5 @@ public class RandomString {
 		}
 		return sb.toString();
 	}
+
 }

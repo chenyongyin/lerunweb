@@ -29,14 +29,17 @@ public class CommentTableDao {
 	// 用户评论
 	public int Releasecomment(int show_id, String user_id,
 			String comment_content, String comment_userid) throws SQLException {
+		//防止'插入时截断
+		String commt=comment_content.replace("'", "''");
 		String sql = "insert into commentTable(show_id,user_id,comment_content,comment_userid)values('"
 				+ show_id
 				+ "','"
 				+ user_id
 				+ "','"
-				+ comment_content
+				+ commt
 				+ "','"
 				+ comment_userid + "')";
+		System.out.println("用户评论sql语句："+sql);
 		Connection conn = DB.getConnection();
 		Statement st = conn.createStatement();
 		int result = st.executeUpdate(sql);

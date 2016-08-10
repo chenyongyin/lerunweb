@@ -258,7 +258,7 @@ public class OrderInfoDao {
 
 	// 精确获取一个报名的二维码
 	public String getUserPrivateCode(String user_id,String user_telphone) throws SQLException {
-		String sql = "select sign_barcode ,lerun_id from orderTable where user_id='"+user_id+"' and user_telphone='"+user_telphone+"' and charge_state='1' order by lerun_id desc";
+		String sql = "select sign_barcode from orderTable where user_id='"+user_id+"' and user_telphone='"+user_telphone+"' and charge_state='1' order by lerun_id desc";
 		Connection conn = DB.getConnection();
 		Statement st = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
 				ResultSet.CONCUR_READ_ONLY);
@@ -362,7 +362,7 @@ public class OrderInfoDao {
 //		int result = dao.checkSignUp(999, "13155822449", "13155822449");
 //		List<LeRun> list = dao.QueryNoPayLerun("13155822449");
 		
-		String qrcode=dao.getUserPrivateCode("13155822449", "13155822449");
+		String qrcode=dao.getUserPrivateCode("18270839435", "18270839435");
 		
 		System.out.println(qrcode);
 	}

@@ -13,6 +13,7 @@ import com.lerun.model.LeRun;
 import com.lerun.model.OrderInfo;
 import com.lerun.model.ShowTable;
 import com.lerun.model.UserInfo;
+import com.lerun.service.HistoryLeRunService;
 import com.lerun.service.LeRunService;
 import com.lerun.service.LunBoService;
 import com.lerun.service.ShowService;
@@ -318,11 +319,46 @@ public class LeRunServlet extends HttpServlet {
 					jsonSting = service.getPersonQrCode(user_id10,
 							user_telphone);
 					System.out.println("取个人二维码:" + jsonSting);
+
 					out.print(jsonSting);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				break;
+
+			case 11:
+
+				int lerun_id11 = Integer.parseInt(request
+						.getParameter("lerun_id"));
+				try {
+					System.out.println("活动点赞:" + jsonSting);
+					jsonSting = service.LikeLerun(lerun_id11);
+					System.out.println("活动点赞:" + jsonSting);
+					out.print(jsonSting);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+
+			case 12:
+				String user_id12 = request.getParameter("user_id");
+				int lerun_id12 = Integer.parseInt(request
+						.getParameter("lerun_id"));
+				int evaluate_star = Integer.parseInt(request
+						.getParameter("evaluate_star"));
+				String evaluate_content = request
+						.getParameter("evaluate_content");
+				try {
+					jsonSting=service.LerunEvaluate(user_id12, lerun_id12, evaluate_star,
+							evaluate_content);
+					out.print(jsonSting);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
 
 			default:
 				break;
@@ -518,14 +554,14 @@ public class LeRunServlet extends HttpServlet {
 			}
 		} else if (flag.equals("aboutus")) {
 			// index 0:检查更新 1:反馈
-			SystemService service=new SystemService();
+			SystemService service = new SystemService();
 			switch (index) {
 			case 0:
-				String version_num=request.getParameter("version_number");
+				String version_num = request.getParameter("version_number");
 				try {
-					
-					jsonSting=service.checkVersion(version_num);
-					System.out.println("检查版本更新："+jsonSting);
+
+					jsonSting = service.checkVersion(version_num);
+					System.out.println("检查版本更新：" + jsonSting);
 					out.print(jsonSting);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -533,28 +569,30 @@ public class LeRunServlet extends HttpServlet {
 				}
 
 				break;
-				
+
 			case 1:
-				String version_number=request.getParameter("version_number");
-				String update_content=request.getParameter("update_content");
-				String update_url=request.getParameter("update_url");
-				
+				String version_number = request.getParameter("version_number");
+				String update_content = request.getParameter("update_content");
+				String update_url = request.getParameter("update_url");
+
 				try {
-					jsonSting=service.ReleaseVersion(version_number, update_content, update_url);
+					jsonSting = service.ReleaseVersion(version_number,
+							update_content, update_url);
 					out.print(jsonSting);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
-				
+
 				break;
 			case 2:
-				
-				String feedback_content=request.getParameter("feedback_content");
-				String user_id=request.getParameter("user_id");
-				String user_telphone=request.getParameter("user_telphone");
-				jsonSting=service.FeedBack(feedback_content, user_id, user_telphone);
+
+				String feedback_content = request
+						.getParameter("feedback_content");
+				String user_id = request.getParameter("user_id");
+				String user_telphone = request.getParameter("user_telphone");
+				jsonSting = service.FeedBack(feedback_content, user_id,
+						user_telphone);
 				out.print(jsonSting);
 
 				break;
@@ -563,6 +601,46 @@ public class LeRunServlet extends HttpServlet {
 				break;
 			}
 
+		}else if(flag.equals("historylerun")){
+			//index 1:根据主题查询活动信息  2获取详细信息
+			HistoryLeRunService service=new HistoryLeRunService();
+			switch (index) {
+			
+			case 1:
+				int lerun_theme=Integer.parseInt(request.getParameter("lerun_theme"));
+				try {
+					jsonSting=service.HistoryLerun(lerun_theme);
+					out.print(jsonSting);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				break;
+			case 2:
+				int lerun_id=Integer.parseInt(request.getParameter("lerun_id"));
+				try {
+					jsonSting=service.HistoryLerunDetail(lerun_id);
+					out.print(jsonSting);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+			case 3:
+				int lerun_id3=Integer.parseInt(request.getParameter("lerun_id"));
+				try {
+					jsonSting=service.getLerunEvaluate(lerun_id3);
+					out.print(jsonSting);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+
+			default:
+				break;
+			}
 		}
 	}
 

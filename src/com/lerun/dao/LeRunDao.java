@@ -103,6 +103,8 @@ public class LeRunDao {
 			lerun.setLerun_province(rs.getString("lerun_province"));
 			lerun.setLerun_city(rs.getString("lerun_city"));
 			lerun.setLerun_agent(rs.getString("lerun_agent"));
+			lerun.setLerun_likenum(rs.getInt("lerun_likenum"));
+			lerun.setLerun_browsenum(rs.getInt("lerun_browsenum"));
 
 			list.add(lerun);
 
@@ -135,6 +137,8 @@ public class LeRunDao {
 			lerun.setLerun_province(rs.getString("lerun_province"));
 			lerun.setLerun_city(rs.getString("lerun_city"));
 			lerun.setLerun_agent(rs.getString("lerun_agent"));
+			lerun.setLerun_likenum(rs.getInt("lerun_likenum"));
+			lerun.setLerun_browsenum(rs.getInt("lerun_browsenum"));
 
 			list.add(lerun);
 
@@ -169,6 +173,8 @@ public class LeRunDao {
 			lerun.setLerun_province(rs.getString("lerun_province"));
 			lerun.setLerun_city(rs.getString("lerun_city"));
 			lerun.setLerun_agent(rs.getString("lerun_agent"));
+			lerun.setLerun_likenum(rs.getInt("lerun_likenum"));
+			lerun.setLerun_browsenum(rs.getInt("lerun_browsenum"));
 
 			list.add(lerun);
 
@@ -279,7 +285,7 @@ public class LeRunDao {
 
 	// 查看结束的活动
 	public List<LeRun> QueryEndLerun() throws SQLException {
-		String sql = "select * from lerunTable where lerun_state='3' order by lerun_time desc";
+		String sql = "select * from lerunTable where lerun_state='3'  order by lerun_time desc";
 		Connection conn = DB.getConnection();
 		Statement st = conn.createStatement();
 		ResultSet rs = st.executeQuery(sql);
@@ -299,6 +305,51 @@ public class LeRunDao {
 			return list;
 		}
 		DB.closeAll(rs, st, conn);
+		return null;
+	}
+
+	// 根据主题查看结束的乐跑活动
+	public List<LeRun> QueryHistoryLerun(int lerun_theme) throws SQLException {
+		String sql = "select * from lerunTable where lerun_state='3' and lerun_theme='"
+				+ lerun_theme + "' order by lerun_time desc";
+		Connection conn = DB.getConnection();
+		Statement st = conn.createStatement();
+		ResultSet rs = st.executeQuery(sql);
+		List<LeRun> list = new ArrayList<LeRun>();
+		List<LeRun> list2 = new ArrayList<LeRun>();
+		while (rs.next()) {
+			LeRun lerun = new LeRun();
+
+			lerun.setLerun_title(rs.getString("lerun_title"));
+			lerun.setLerun_time(rs.getString("lerun_time"));
+			lerun.setLerun_address(rs.getString("lerun_address"));
+			lerun.setLerun_poster(rs.getString("lerun_poster"));
+			lerun.setLerun_state(Integer.parseInt(rs.getString("lerun_state")));
+			lerun.setLerun_id(Integer.parseInt(rs.getString("lerun_id")));
+
+			list.add(lerun);
+			return list;
+		}
+		DB.closeAll(rs, st, conn);
+		return null;
+	}
+
+	// 历史回顾页面详情信息
+	public LeRun HistoryDetail(int lerun_id) throws SQLException {
+		LeRunEvaluateTableDao dao = new LeRunEvaluateTableDao();
+		String sql = "select lerun_title,lerun_time,lerun_content,lerun_poster from lerunTable where lerun_id='"
+				+ lerun_id + "'";
+		Statement st = conn.createStatement();
+		ResultSet rs = st.executeQuery(sql);
+		while (rs.next()) {
+			LeRun bean = new LeRun();
+			bean.setAverageStar(dao.AverageStar(lerun_id)+"");
+			bean.setLerun_content(rs.getString("lerun_content"));
+			bean.setLerun_poster(rs.getString("lerun_poster"));
+			bean.setLerun_time(rs.getString("lerun_time"));
+			bean.setLerun_title(rs.getString("lerun_title"));
+			return bean;
+		}
 		return null;
 	}
 
@@ -355,10 +406,50 @@ public class LeRunDao {
 		return 0;
 	}
 
+	// 获取lerun的点赞量
+	public int getLerunlikeNum(int lerun_id) throws SQLException {
+		int like_num = 0;
+		String sql = "select lerun_likenum from lerunTable where lerun_id='"
+				+ lerun_id + "'";
+		Statement st = conn.createStatement();
+
+		ResultSet rs = st.executeQuery(sql);
+		while (rs.next()) {
+			like_num = rs.getInt(1);
+		}
+		return like_num;
+
+	}
+
+	// 获取lerun的浏览量
+	public int getLerunBrowseBum(int lerun_id) throws SQLException {
+		int browse_num = 0;
+		String sql = "select lerun_browsenum from lerunTable where lerun_id='"
+				+ lerun_id + "'";
+		Statement st = conn.createStatement();
+
+		ResultSet rs = st.executeQuery(sql);
+		while (rs.next()) {
+			browse_num = rs.getInt(1);
+		}
+		return browse_num;
+
+	}
+
+	// //用户点赞lerun
+	//
+	// public int likeLerun(int lerun_id ){
+	//
+	//
+	//
+	// return lerun_id;}
+	//
+	// //更新浏览量
+
 	public static void main(String[] args) throws SQLException {
-		LeRunDao dao = new LeRunDao();
-		// String result = dao.getLerun();
-//		System.out.println(result);
+		// LeRunDao dao = new LeRunDao();
+		// String result = dao.getLerun("江西");
+		// System.out.println(result);
 	}
 
 }

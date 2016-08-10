@@ -7,11 +7,13 @@ import java.util.List;
 import com.lerun.bean.QrcodeBean;
 import com.lerun.bean.ResponseObject;
 import com.lerun.dao.LeRunDao;
+import com.lerun.dao.LeRunEvaluateTableDao;
 import com.lerun.dao.OrderInfoDao;
 import com.lerun.model.LeRun;
 import com.lerun.model.OrderInfo;
 import com.lerun.utils.GsonTools;
 import com.lerun.utils.JsonTools;
+import com.lerun.utils.RandomUtils;
 
 public class LeRunService {
 	LeRunDao dao = new LeRunDao();
@@ -33,23 +35,22 @@ public class LeRunService {
 	// 查询所有未结束的活动
 	public String QueryAll(String lerun_province) throws SQLException {
 		List<LeRun> data = dao.getLerun(lerun_province);
-//		if (data != null && !data.isEmpty()) {
-//			ResponseObject object = new ResponseObject();
-//			object.setDatas(data);
-//			object.setStage(1);
-//			result = GsonTools.createJsonString(object);
-//		}else{
-//			ResponseObject object = new ResponseObject();
-//			object.setDatas("没有数据");
-//			object.setStage(0);
-//			result = GsonTools.createJsonString(object);
-//		}
+		// if (data != null && !data.isEmpty()) {
+		// ResponseObject object = new ResponseObject();
+		// object.setDatas(data);
+		// object.setStage(1);
+		// result = GsonTools.createJsonString(object);
+		// }else{
+		// ResponseObject object = new ResponseObject();
+		// object.setDatas("没有数据");
+		// object.setStage(0);
+		// result = GsonTools.createJsonString(object);
+		// }
 		if (data != null && !data.isEmpty()) {
 			result = JsonTools.createJsonString("result", data);
 		} else {
 			result = "empty";
 		}
-
 
 		return result;
 	}
@@ -70,6 +71,11 @@ public class LeRunService {
 	// 查看活动详细信息
 	public String QueryDetail(int lerun_id) throws SQLException {
 		LeRun data = dao.QueryDetailLerun(lerun_id);
+
+		int lerun_num = dao.getLerunBrowseBum(lerun_id)
+				+ RandomUtils.getRandomInt(50, 20);
+		dao.updateLeRun(lerun_id, "lerun_browsenum", lerun_num + "");
+
 		if (data != null) {
 			result = JsonTools.createJsonString("result", data);
 			return result;
@@ -146,6 +152,26 @@ public class LeRunService {
 
 	}
 
+	// 用户点赞lerun
+	public String LikeLerun(int lerun_id) throws SQLException {
+		int like_num = dao.getLerunlikeNum(lerun_id)
+				+ RandomUtils.getRandomInt(5, 1);
+		ResponseObject response = new ResponseObject();
+		int flag=dao.updateLeRun(lerun_id, "lerun_likenum", like_num+"");
+		System.out.println("点赞：" + like_num);
+		if(flag==1){
+			
+			response.setDatas("点赞成功");
+			response.setStage(1);
+		}else{
+			
+			response.setDatas("点赞失败");
+			response.setStage(0);
+		}
+
+		return GsonTools.createJsonString(response);
+	}
+
 	// 查询为付款的乐跑活动
 	public String QueryPersonalNoPayLerun(String user_id) throws SQLException {
 		List<LeRun> list = new ArrayList<LeRun>();
@@ -210,10 +236,30 @@ public class LeRunService {
 		return result;
 	}
 
+	
+	
+	// 评论乐跑活动
+	public String LerunEvaluate(String user_id, int lerun_id,
+			int evaluate_star, String evaluate_content) throws SQLException {
+		LeRunEvaluateTableDao evdao = new LeRunEvaluateTableDao();
+		int flag = evdao.Evaluate(user_id, lerun_id, evaluate_star,
+				evaluate_content);
+		ResponseObject responese = new ResponseObject();
+		if (flag == 1) {
+			responese.setDatas("评价成功");
+			responese.setStage(1);
+		} else {
+
+			responese.setDatas("评价失败");
+			responese.setStage(0);
+		}
+		return GsonTools.createJsonString(responese);
+
+	}
 	public static void main(String[] args) throws SQLException {
 		LeRunService service = new LeRunService();
 		// String result = service.getQrCode("13155822449",999);
-		String result = service.QueryAll("江西");
+		String result = service.LerunEvaluate("18270839435",999,4,"美女好多，看的直流口水");
 		System.out.println(result);
 
 	}

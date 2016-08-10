@@ -28,6 +28,8 @@ public class LeRun {
 	private int charge_state;
 	private String lerun_province;
 	private String lerun_agent;
+	private int lerun_likenum;
+	private int lerun_browsenum;
 	//活动收费表
 	private int charge_free;
 	private int charge_common;
@@ -44,6 +46,7 @@ public class LeRun {
 	//剩余
 	private int lerun_surplus;
 	private int lerun_freesurplus;
+	String AverageStar;//平均分
 
 	
 	public LeRun() {
@@ -54,6 +57,22 @@ public class LeRun {
 
 	
 	
+
+	public String getAverageStar() {
+		return AverageStar;
+	}
+
+
+
+
+
+	public void setAverageStar(String averageStar) {
+		AverageStar = averageStar;
+	}
+
+
+
+
 
 	public LeRun(int lerun_id, String lerun_title, String lerun_poster,
 			String lerun_time, String lerun_address,int lerun_state,String lerun_host) {
@@ -520,6 +539,38 @@ public class LeRun {
 
 	public void setLerun_agent(String lerun_agent) {
 		this.lerun_agent = lerun_agent;
+	}
+
+
+
+
+
+	public int getLerun_likenum() {
+		return lerun_likenum;
+	}
+
+
+
+
+
+	public void setLerun_likenum(int lerun_likenum) {
+		this.lerun_likenum = lerun_likenum;
+	}
+
+
+
+
+
+	public int getLerun_browsenum() {
+		return lerun_browsenum;
+	}
+
+
+
+
+
+	public void setLerun_browsenum(int lerun_browsenum) {
+		this.lerun_browsenum = lerun_browsenum;
 	}
 	
 	

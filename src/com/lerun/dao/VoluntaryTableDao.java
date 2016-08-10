@@ -10,7 +10,8 @@ import java.util.Random;
 
 import com.lerun.model.VoluntaryTable;
 import com.lerun.utils.DBConnection;
-import com.lerun.utils.RandomString;
+
+import com.lerun.utils.RandomUtils;
 
 /**
  *@Author: wschenyongyin
@@ -81,7 +82,7 @@ public class VoluntaryTableDao {
 		List<VoluntaryTable> list = new ArrayList<VoluntaryTable>();
 		for (int i = 0; i < count; i++) {
 			int id = new Random().nextInt(999999);
-			String pwd = RandomString.getRandomString(6);
+			String pwd = RandomUtils.getRandomString(6);
 			VoluntaryTableDao dao = new VoluntaryTableDao();
 			if (dao.insertVoluntary(id, pwd) == 1) {
 				VoluntaryTable info = new VoluntaryTable();
