@@ -25,9 +25,9 @@ public class volunteerService {
 	}
 	
 	//志愿者扫描判断  
-	public OrderInfo returnVoluntaryInfo(int lerun_id, String user_id)
+	public OrderInfo returnVoluntaryInfo(int lerun_id, String user_id,String user_telphone)
 			throws SQLException {		
-		bean=orderVolunteer.returnVoluntaryInfo(lerun_id, user_id);		
+		bean=orderVolunteer.returnVoluntaryInfo(lerun_id, user_id,user_telphone);		
 		return bean;
 	}
 	//签到实现    1签到成功 0签到失败   SignIn

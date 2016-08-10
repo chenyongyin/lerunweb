@@ -10,6 +10,8 @@ package com.lerun.bean;
 public class imageBean {
 	
 	private String imagePath;
+	private String personal_name;
+	private String sign_state;
 
 	public String getImagePath() {
 		return imagePath;

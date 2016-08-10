@@ -110,21 +110,30 @@ public class UploadServlet extends HttpServlet {
 					System.out.println(inputStream2String(is));
 				} else if (name.contains("img")) {
 					try {
-						path = upload + "image/" + item.getName();
-						returnPath = "image/" + item.getName();
-						inputStream2File(is, path);
-						bean.setImagePath(returnPath);
-						imagelist.add(bean);
+						if(list.size()>1){
+							path = upload + "image/" + item.getName();
+							returnPath = "image/" + item.getName();
+							inputStream2File(is, path);
+							bean.setImagePath(returnPath);
+							imagelist.add(bean);
+							ResponseObject responseObject = new ResponseObject(1, imagelist);
+							// ResponseObject responseObject = new
+							// ResponseObject(1,showbean.getShow_image() );
+							returnImagePath = GsonTools.createJsonString(responseObject);
+						}else{
+							path = upload + "image/" + item.getName();
+							returnPath = "image/" + item.getName();
+							inputStream2File(is, path);
+							returnImagePath=returnPath;
+						}
+						
 						// break;
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
 				}
 
-				ResponseObject responseObject = new ResponseObject(1, imagelist);
-				// ResponseObject responseObject = new
-				// ResponseObject(1,showbean.getShow_image() );
-				returnImagePath = GsonTools.createJsonString(responseObject);
+				
 				System.out.println(returnImagePath);
 
 			}

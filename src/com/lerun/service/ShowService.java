@@ -58,12 +58,12 @@ public class ShowService {
 	}
 
 	// 查看所有的show
-	public String QueryAllShow(int pageSize, int currentPage)
+	public String QueryAllShow(int pageSize, int currentPage, String user_id)
 			throws SQLException {
 		List<ShowTable> data = new ArrayList<ShowTable>();
 		// 用于存放一页的内容
 		List<ShowTable> subData = null;
-		data = showDao.QueryAllShow();
+		data = showDao.QueryAllShow(user_id);
 
 		if (data != null) {
 			int pageNumber = data.size() / pageSize;
@@ -203,14 +203,20 @@ public class ShowService {
 	// 点赞
 	public String ReleaseLike(String user_id, int show_id, String like_userid)
 			throws SQLException {
-		tag = likeDao.ReleaseLike(user_id, show_id, like_userid);
-		if (tag == 1) {
-			response = new ResponseObject(1, "点赞成功成功");
+		if (user_id.equals("") || user_id == null) {
+
+			response = new ResponseObject(0, "还没登陆，点赞失败");
 			result = GsonTools.createJsonString(response);
 		} else {
-			response = new ResponseObject(0, "点赞失败失败");
-			result = GsonTools.createJsonString(response);
+			tag = likeDao.ReleaseLike(user_id, show_id, like_userid);
+			if (tag == 1) {
+				response = new ResponseObject(1, "点赞成功成功");
+				result = GsonTools.createJsonString(response);
+			} else {
+				response = new ResponseObject(0, "点赞失败失败");
+				result = GsonTools.createJsonString(response);
 
+			}
 		}
 		return result;
 
@@ -219,8 +225,8 @@ public class ShowService {
 	public static void main(String[] args) throws SQLException {
 		ShowService showService = new ShowService();
 		// showService.QueryAllShow(2, 2);
-		String Result = showService.QueryShowComment(1000);
-//		String Result = showService.QueryAllShow(2, 0);
+		String Result = showService.ReleaseLike("", 1004, "18270839435");
+		// String Result = showService.QueryAllShow(2, 0);
 		System.out.println(Result);
 
 	}

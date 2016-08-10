@@ -28,8 +28,9 @@ public class UserInfoDao {
 	// 用户注册
 
 	public int Register(String user_id, String user_pwd) throws SQLException {
-		String sql = "insert into userTable(user_id,user_pwd) values('"
-				+ user_id + "','" + user_pwd + "')";
+		String default_userlog="image/default_userlog.png";
+		String sql = "insert into userTable(user_id,user_pwd,user_header) values('"
+				+ user_id + "','" + user_pwd + "','"+default_userlog+"')";
 		Connection conn = DB.getConnection();
 		Statement st = conn.createStatement();
 		int result = st.executeUpdate(sql);
@@ -76,7 +77,7 @@ public class UserInfoDao {
 
 	// 查询用户信息
 	public UserInfo QueryInfo(String user_id) throws SQLException {
-		String sql = "select * from userTable where user_id=" + user_id + " ";
+		String sql = "select * from userTable where user_id='" + user_id + "' ";
 		Connection conn = DB.getConnection();
 		Statement st = conn.createStatement();
 		ResultSet rs = st.executeQuery(sql);
@@ -126,12 +127,13 @@ public class UserInfoDao {
 	public static void main(String[] args) throws SQLException {
 		UserInfoDao dao = new UserInfoDao();
 		// dao.Register("123", "admin");
-		UserInfo info = new UserInfo();
-		info.setUpdate_type("user_name");
-		info.setUpdate_values("2222");
+//		UserInfo info = new UserInfo();
+//		info.setUpdate_type("user_name");
+//		info.setUpdate_values("2222");
 		// info.set
 		// String result=dao.Login("125");
 		// System.out.println("r"+result);
+		dao.Register("321", "456");
 
 	}
 	/**

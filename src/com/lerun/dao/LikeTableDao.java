@@ -37,6 +37,7 @@ public class LikeTableDao {
 		while (rs.next()) {
 			flag = 1;
 		}
+		
 		return flag;
 	}
 
@@ -105,8 +106,11 @@ public class LikeTableDao {
 		LikeTableDao dao = new LikeTableDao();
 		// int result=dao.countLikeNumber(999);
 		// List<UserInfo> result=dao.QueryLikeUser(999);
-		List<UserInfo> list=dao.QueryLikeUser(1000);
-		System.out.println("result:" + list.size());
+//		List<UserInfo> list=dao.QueryLikeUser(1000);
+//		int result=dao.ReleaseLike("18270839435", 1002, "13155822449");
+//		System.out.println("result:" + result);
+		int result=dao.QueryExistUser(1002, "18270839435");
+		System.out.println("result:" + result);
 
 	}
 

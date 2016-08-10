@@ -10,11 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.lerun.model.LeRun;
+import com.lerun.model.OrderInfo;
 import com.lerun.model.ShowTable;
 import com.lerun.model.UserInfo;
 import com.lerun.service.LeRunService;
 import com.lerun.service.LunBoService;
 import com.lerun.service.ShowService;
+import com.lerun.service.SystemService;
 import com.lerun.service.UserService;
 import com.lerun.utils.JsonTools;
 import com.lerun.utils.ParsingJson;
@@ -64,8 +66,12 @@ public class LeRunServlet extends HttpServlet {
 			case 0:
 				String user_id = request.getParameter("user_id");
 				String user_pwd = request.getParameter("user_pwd");
+				System.out.println("注册的id:" + user_id);
+				System.out.println("注册的pwd:" + user_pwd);
 				try {
 					result = service.userRegister(user_id, user_pwd);
+
+					System.out.println("注册结果:" + result);
 					out.print(result);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -101,6 +107,7 @@ public class LeRunServlet extends HttpServlet {
 				info.setUser_id(request.getParameter("user_id"));
 				info.setUpdate_type(request.getParameter("update_type"));
 				info.setUpdate_values(request.getParameter("update_values"));
+				System.out.println("用户id:" + request.getParameter("user_id"));
 				System.out.println("update_type:"
 						+ request.getParameter("update_type"));
 				System.out.println("update_values:"
@@ -117,6 +124,7 @@ public class LeRunServlet extends HttpServlet {
 				break;
 			case 4:
 				String user_id4 = request.getParameter("user_id");
+				System.out.println("user_id:" + user_id4);
 				try {
 					jsonSting = service.QueryInfo(user_id4);
 					System.out.println("获取用户信息：" + jsonSting);
@@ -141,7 +149,8 @@ public class LeRunServlet extends HttpServlet {
 			// 获取所有未结束的活动
 			case 0:
 				try {
-					jsonSting = service.QueryAll();
+					jsonSting = service.QueryAll("江西");
+					System.out.println("获取所有活动" + jsonSting);
 					out.print(jsonSting);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -154,7 +163,9 @@ public class LeRunServlet extends HttpServlet {
 				try {
 					int lerun_id = Integer.parseInt(request
 							.getParameter("lerun_id"));
+					System.out.println("lerun_id:" + lerun_id);
 					jsonSting = service.QueryDetail(lerun_id);
+					System.out.println("活动详情信息" + jsonSting);
 					out.print(jsonSting);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -193,11 +204,35 @@ public class LeRunServlet extends HttpServlet {
 				break;
 			// 报名乐跑
 			case 4:
-				String user_id = request.getParameter("user_id");
-				int lerun_id4 = Integer.parseInt(request
-						.getParameter("lerun_id"));
+				OrderInfo info = new OrderInfo();
+				info.setUser_id(request.getParameter("user_id"));
+				info.setLerun_id(Integer.parseInt(request
+						.getParameter("lerun_id")));
+				info.setUser_telphone(request.getParameter("user_telphone"));
+				info.setLerun_title(request.getParameter("lerun_title"));
+				System.out.println("signin_type"
+						+ request.getParameter("signin_type"));
+				info.setSignin_type(Integer.parseInt(request
+						.getParameter("signin_type")));
+
+				info.setPersonal_name(request.getParameter("personal_name"));
+				info.setCompany_name(request.getParameter("company_name"));
+				info.setCertificate_image(request
+						.getParameter("certificate_image"));
+				info.setIdentity_type(request.getParameter("identity_type"));
+				info.setIdentity_card(request.getParameter("identity_card"));
+				// info.setInsurance_id(Integer.parseInt(request.getParameter("insurance_id")));
+				info.setDress_size(request.getParameter("dress_size"));
+				info.setUser_sex(request.getParameter("user_sex"));
+				info.setPayment(Integer.parseInt(request
+						.getParameter("payment")));
+				System.out.println("用户电话:"
+						+ request.getParameter("user_telphone"));
+				System.out.println("价格payent："
+						+ request.getParameter("payment"));
+				System.out.println("用户id:" + request.getParameter("user_id"));
 				try {
-					result = service.SignUp(lerun_id4, user_id);
+					result = service.SignUp(info);
 					out.print(result);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -239,6 +274,50 @@ public class LeRunServlet extends HttpServlet {
 			case 7:
 				try {
 					jsonSting = service.QueryEnd();
+					out.print(jsonSting);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+			case 8:
+				String user_id8 = request.getParameter("user_id");
+				int lerun_id8 = Integer.parseInt(request
+						.getParameter("lerun_id"));
+				try {
+					System.out.println("用户名:" + user_id8 + "lerun_id8:"
+							+ lerun_id8);
+					jsonSting = service.getQrCode(user_id8, lerun_id8);
+					System.out.println("查询二维码返回的结果:" + jsonSting);
+					out.print(jsonSting);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				break;
+			case 9:
+				String user_id9 = request.getParameter("user_id");
+
+				try {
+					jsonSting = service.QueryPersonalNoPayLerun(user_id9);
+					System.out.println("查询未付款的结果:" + jsonSting);
+					out.print(jsonSting);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				break;
+			case 10:
+				String user_id10 = request.getParameter("user_id");
+				String user_telphone = request.getParameter("user_telphone");
+				try {
+					System.out.println("用户名:" + user_id10 + "联系号码:"
+							+ user_telphone);
+					jsonSting = service.getPersonQrCode(user_id10,
+							user_telphone);
+					System.out.println("取个人二维码:" + jsonSting);
 					out.print(jsonSting);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -291,10 +370,13 @@ public class LeRunServlet extends HttpServlet {
 						.getParameter("pageSize"));
 				int currentPage = Integer.parseInt(request
 						.getParameter("currentPage"));
+				String user_id2 = request.getParameter("user_id");
 				System.out.println("pageSize:" + pageSize);
 				System.out.println("currentPage:" + currentPage);
+				System.out.println("user_id2:" + user_id2);
 				try {
-					jsonSting = showSerview.QueryAllShow(pageSize, currentPage);
+					jsonSting = showSerview.QueryAllShow(pageSize, currentPage,
+							user_id2);
 					out.print(jsonSting);
 					System.out.println("获取全部show：" + jsonSting);
 				} catch (SQLException e) {
@@ -321,10 +403,10 @@ public class LeRunServlet extends HttpServlet {
 			case 4:
 				int show_id2 = Integer
 						.parseInt(request.getParameter("show_id"));
-				System.out.println("获取show的评论时show_id"+ show_id2);
+				System.out.println("获取show的评论时show_id" + show_id2);
 				try {
 					jsonSting = showSerview.QueryShowComment(show_id2);
-					System.out.println("获取show的评论"+jsonSting);
+					System.out.println("获取show的评论" + jsonSting);
 					out.print(jsonSting);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -349,8 +431,11 @@ public class LeRunServlet extends HttpServlet {
 				int show_id4 = Integer
 						.parseInt(request.getParameter("show_id"));
 				String user_id4 = request.getParameter("user_id");
+				System.out.println("show_id" + show_id4);
+				System.out.println("user_id" + user_id4);
 				try {
 					jsonSting = showSerview.canLike(user_id4, show_id4);
+					System.out.println("取消点赞返回信息:" + jsonSting);
 					out.print(jsonSting);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -384,10 +469,11 @@ public class LeRunServlet extends HttpServlet {
 				System.out.println("点赞用户的id:" + user_id8);
 				System.out.println("点赞show_id:" + show_id8);
 				System.out.println("被点赞用户like_userid8:" + like_userid8);
-				
+
 				try {
 					jsonSting = showSerview.ReleaseLike(user_id8, show_id8,
 							like_userid8);
+					System.out.println("点赞返回的数据:" + jsonSting);
 					out.print(jsonSting);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -408,6 +494,7 @@ public class LeRunServlet extends HttpServlet {
 			case 0:
 				try {
 					jsonSting = service.getImageData();
+					System.out.println("lunbo信息：" + jsonSting);
 					out.print(jsonSting);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -429,8 +516,54 @@ public class LeRunServlet extends HttpServlet {
 			default:
 				break;
 			}
+		} else if (flag.equals("aboutus")) {
+			// index 0:检查更新 1:反馈
+			SystemService service=new SystemService();
+			switch (index) {
+			case 0:
+				String version_num=request.getParameter("version_number");
+				try {
+					
+					jsonSting=service.checkVersion(version_num);
+					System.out.println("检查版本更新："+jsonSting);
+					out.print(jsonSting);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				break;
+				
+			case 1:
+				String version_number=request.getParameter("version_number");
+				String update_content=request.getParameter("update_content");
+				String update_url=request.getParameter("update_url");
+				
+				try {
+					jsonSting=service.ReleaseVersion(version_number, update_content, update_url);
+					out.print(jsonSting);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+				break;
+			case 2:
+				
+				String feedback_content=request.getParameter("feedback_content");
+				String user_id=request.getParameter("user_id");
+				String user_telphone=request.getParameter("user_telphone");
+				jsonSting=service.FeedBack(feedback_content, user_id, user_telphone);
+				out.print(jsonSting);
+
+				break;
+
+			default:
+				break;
+			}
+
 		}
-		;
 	}
 
 	public void init() throws ServletException {

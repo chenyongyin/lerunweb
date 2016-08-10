@@ -54,7 +54,7 @@ public class ShowTableDao {
 
 	// 查看所有用户的show
 //用户头像   用户昵称  show图片  show内容  show_id  user_id
-	public List<ShowTable> QueryAllShow() throws SQLException {
+	public List<ShowTable> QueryAllShow(String user_id) throws SQLException {
 		String sql = "select user_header,show_time,user_name,show_image,show_content,show_id,userTable.user_id from showTable,userTable where showTable.user_id=userTable.user_id order by show_id desc";
 		Connection conn = DB.getConnection();
 		Statement st = conn.createStatement();
@@ -65,11 +65,12 @@ public class ShowTableDao {
 		while (rs.next()) {
 			ShowTable show = new ShowTable();
 			int flag = likeDao.QueryExistUser(rs.getInt("show_id"),
-					rs.getString("user_id"));
+					user_id);
 			int like_num = likeDao.countLikeNumber(rs.getInt("show_id"));
 			int comment_num =commentDao.countCommentNumber (rs.getInt("show_id"));
 			System.out.println("show_id:"+rs.getInt("show_id"));
 			System.out.println("点赞用户：" + like_num + ",评论用户:" + comment_num);
+			System.out.println("flag："+flag);
 			show.setShow_content(rs.getString("show_content"));
 			show.setShow_id(rs.getInt("show_id"));
 			show.setShow_image(rs.getString("show_image"));
@@ -185,6 +186,8 @@ public class ShowTableDao {
 		return list;
 
 	}
+	
+	
 
 	public static void main(String[] args) throws SQLException {
 		ShowTableDao dao = new ShowTableDao();

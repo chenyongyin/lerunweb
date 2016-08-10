@@ -34,7 +34,7 @@ public class UserService {
 			flag = dao.Register(user_id, user_pwd);
 			System.out.println("注册成功");
 		} else {
-			System.out.println("用户已存在");
+			flag=2;
 		}
 		return flag;
 	}
@@ -126,8 +126,9 @@ public class UserService {
 	public static void main(String[] args) throws SQLException {
 		UserService service = new UserService();
 		// service.userRegister("123", "admin");
-		List<LeRun> list = service.QueryLerun("123");
-		System.out.println(list.size());
+//		List<LeRun> list = service.QueryLerun("123");
+		int result=service.userRegister("15180457959", "123456");
+		System.out.println(result);
 
 	}
 

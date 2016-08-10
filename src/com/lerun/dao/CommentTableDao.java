@@ -58,7 +58,7 @@ public class CommentTableDao {
 
 	// 查看show评论
 	public List<commentTable> QueryComment(int show_id) throws SQLException {
-		String sql = "select comment_content,comment_id,comment_time,comment_userid,userTable.user_id,user_header,user_name from userTable,commentTable where userTable.user_id=commentTable.user_id and show_id='"+show_id+"'";
+		String sql = "select comment_content,comment_id,comment_time,comment_userid,userTable.user_id,user_header,user_name from userTable,commentTable where userTable.user_id=commentTable.user_id and show_id='"+show_id+"' order by comment_id desc";
 		Connection conn = DB.getConnection();
 		Statement st = conn.createStatement();
 		ResultSet rs = st.executeQuery(sql);

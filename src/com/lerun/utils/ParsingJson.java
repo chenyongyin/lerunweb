@@ -29,26 +29,29 @@ public class ParsingJson {
 
 			lerun.setLerun_address(Object.getString("lerun_address"));
 			lerun.setLerun_begintime(Object.getString("lerun_begintime"));
-			lerun.setLerun_charge(Object.getString("lerun_charge"));
+			lerun.setCharge_id(Integer.parseInt(Object.getString("lerun_charge")));
 			lerun.setLerun_city(Object.getString("lerun_city"));
 			lerun.setLerun_content(Object.getString("lerun_content"));
 			lerun.setLerun_dimage(Object.getString("lerun_dimage"));
 			lerun.setLerun_endtime(Object.getString("lerun_endtime"));
 			lerun.setLerun_endtime(Object.getString("lerun_endtime"));
 			lerun.setLerun_host(Object.getString("lerun_host"));
-			lerun.setLerun_id(Object.getString("lerun_id"));
+			lerun.setLerun_id(Integer.parseInt(Object.getString("lerun_id")));
 			lerun.setLerun_map(Object.getString("lerun_map"));
-			lerun.setLerun_maxuser(Object.getString("lerun_maxuser"));
+			lerun.setLerun_maxuser(Integer.parseInt(Object.getString("lerun_maxuser")));
 			lerun.setLerun_poster(Object.getString("lerun_poster"));
 			lerun.setLerun_process(Object.getString("lerun_process"));
 			lerun.setLerun_routine(Object.getString("lerun_routine"));
 			lerun.setLerun_ruler(Object.getString("lerun_ruler"));
 			lerun.setLerun_sponsor(Object.getString("lerun_sponsor"));
-			lerun.setLerun_state(Object.getString("lerun_state"));
+			lerun.setLerun_state(Integer.parseInt(Object.getString("lerun_state")));
 			lerun.setLerun_time(Object.getString("lerun_time"));
 			lerun.setLerun_title(Object.getString("lerun_title"));
 			lerun.setLerun_type(Object.getString("lerun_type"));
 			lerun.setLerun_video(Object.getString("lerun_video"));
+			lerun.setLerun_agent(Object.getString("lerun_agent"));
+			lerun.setLerun_province(Object.getString("lerun_province"));
+			
 			return lerun;
 
 		} catch (Exception e) {
@@ -56,5 +59,8 @@ public class ParsingJson {
 		}
 		return null;
 	}
+	
+	
+	
 
 }
